@@ -1,1 +1,4 @@
 rootProject.name = 'music'
+
+include 'frontend', 'backend'
+    
