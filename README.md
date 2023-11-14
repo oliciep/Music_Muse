@@ -1,7 +1,7 @@
 
 # My Music Recommendation Application
 
-This project is a Springboot/React based music recommendation application. The back end uses Springboot as the web application framework, alongside gradle to build the application. It uses the Spotify API in order to fetch music information. The front end uses React.JS to create the interface.
+This project is a Springboot/React based music recommendation application. The back end uses Springboot as the web application framework, alongside gradle to build the application. It uses the Spotify API in order to fetch music information. The front end of the project uses React.JS to create the interface.
 
 ## Features
 
