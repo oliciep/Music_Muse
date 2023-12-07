@@ -5,7 +5,7 @@ This project is a Springboot/React based music recommendation application. The b
 
 ## Features
 
-- Springboot based stack for front/back end.
+- SpringBoot based stack for front/back end.
 - REST API functionality using spotify web API.
 - React.JS integration for front end interface.
 
