@@ -47,6 +47,7 @@ function App() {
 
   return (
     <div className="App">
+      <h2>Welcome to MusicMuse</h2>
       {!loggedIn && <a href="http://localhost:8888">Login to Spotify.</a>}
       {loggedIn && (
         <>
