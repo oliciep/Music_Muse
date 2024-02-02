@@ -3,6 +3,11 @@ import './App.css';
 import React, { useState, useEffect } from "react"
 import SpotifyWebApi from "spotify-web-api-js"
 
+import Paper from '@mui/material/Paper';
+import Link from '@mui/material/Link';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 const spotifyApi = new SpotifyWebApi
 
 const getTokenFromUrl = () => {
@@ -34,7 +39,6 @@ function App() {
       setLoggedIn(true)
     }
   })
-  
   const getNowPlaying = () => {
     spotifyApi.getMyCurrentPlaybackState().then((response) => {
       console.log(response);
@@ -46,20 +50,33 @@ function App() {
   }
 
   return (
+    
     <div className="App">
-      <h2>Welcome to MusicMuse</h2>
-      {!loggedIn && <a href="http://localhost:8888">Login to Spotify.</a>}
-      {loggedIn && (
-        <>
-          <div>Now playing: {nowPlaying.name}</div>
-          <div>
-            <img src={nowPlaying.albumArt} style={{height: 150}}/>
-          </div>
-        </>
-      )}
-      {loggedIn && (
-        <button onClick={() => getNowPlaying()}>Check Now Playing</button>
-      )}
+      <Paper style={{ backgroundColor: '#2196f3', padding: '20px', textAlign: 'center', width: '100%', height: '100vh' }}>
+        <Typography variant="h1" color="primary" gutterBottom>
+          Welcome to MusicMuse
+        </Typography>
+        {!loggedIn && (
+          <>
+            <Button variant="contained" color="primary" href="http://localhost:8888">
+              Log In to Spotify
+            </Button>
+          </>
+        )}
+        {loggedIn && (
+          <>
+            <Typography variant="h6" style={{ fontWeight: 'bold', color: 'blue' }}>
+              Now Playing: {nowPlaying.name}
+            </Typography>
+            <div>
+              <img src={nowPlaying.albumArt} style={{height: 150}}/>
+            </div>
+          </>
+        )}
+        {loggedIn && (
+          <Button variant="contained" color="primary" onClick={() => getNowPlaying()}>Check Now Playing</Button>
+        )}
+      </Paper>
     </div>
   );
 }
