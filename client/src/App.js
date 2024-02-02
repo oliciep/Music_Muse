@@ -57,7 +57,7 @@ function App() {
           Welcome to MusicMuse
         </Typography>
         {!loggedIn && (
-          <>
+          <> 
             <Button variant="contained" color="primary" href="http://localhost:8888">
               Log In to Spotify
             </Button>
