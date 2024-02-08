@@ -19,7 +19,7 @@ const getTokenFromUrl = () => {
 }
 
 
-function App() {
+function App() {  
   const [spotifyToken, setSpotifyToken] = useState("");
   const [nowPlaying, setNowPlaying] = useState({})
   const [loggedIn, setLoggedIn] = useState(false)
@@ -32,7 +32,7 @@ function App() {
 
     if (spotifyToken) {
       setSpotifyToken(spotifyToken)
-      spotifyApi.setAccessToken(spotifyToken)
+      spotifyApi.setAccessToken(spotifyToken) 
       spotifyApi.getMe().then((user) => {
         console.log(user)
       })
@@ -52,7 +52,6 @@ function App() {
   return (
     
     <div className="App">
-      <Paper style={{ backgroundColor: '#2196f3', padding: '20px', textAlign: 'center', width: '100%', height: '100vh' }}>
         <Typography variant="h1" color="primary" gutterBottom>
           Welcome to MusicMuse
         </Typography>
@@ -76,7 +75,6 @@ function App() {
         {loggedIn && (
           <Button variant="contained" color="primary" onClick={() => getNowPlaying()}>Check Now Playing</Button>
         )}
-      </Paper>
     </div>
   );
 }
