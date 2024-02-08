@@ -8,7 +8,7 @@ This project is a React based music recommendation application. It uses the Spot
 - REST API functionality using spotify web API.
 - React.JS integration for front end interface.
 
-
+ 
 ## Acknowledgements
  - [Spotify API](https://developer.spotify.com/documentation/web-api)
 
