@@ -3,8 +3,7 @@ import './App.css';
 import React, { useState, useEffect } from "react"
 import SpotifyWebApi from "spotify-web-api-js"
 
-import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
@@ -52,6 +51,7 @@ function App() {
   return (
     
     <div className="App">
+      <Box sx={{ backgroundColor: 'cyan', minHeight: '100vh', position: 'fixed', top: 0, right: 0, bottom: 0, left: 0, margin: 0, padding: 0}}>
         <Typography variant="h1" color="primary" gutterBottom>
           Welcome to MusicMuse
         </Typography>
@@ -75,6 +75,7 @@ function App() {
         {loggedIn && (
           <Button variant="contained" color="primary" onClick={() => getNowPlaying()}>Check Now Playing</Button>
         )}
+      </Box>
     </div>
   );
 }
