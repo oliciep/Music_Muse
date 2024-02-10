@@ -53,7 +53,10 @@ function App() {
     <div className="App">
       <Box sx={{ backgroundColor: 'cyan', minHeight: '100vh', position: 'fixed', top: 0, right: 0, bottom: 0, left: 0, margin: 0, padding: 0}}>
         <Typography variant="h1" color="primary" gutterBottom>
-          Welcome to MusicMuse
+          Welcome to MusicMuse!
+        </Typography>
+        <Typography variant="h2" color="secondary" gutterBottom>
+          Discover new music.
         </Typography>
         {!loggedIn && (
           <> 
