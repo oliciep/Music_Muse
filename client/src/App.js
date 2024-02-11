@@ -55,7 +55,7 @@ function App() {
         <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation" >
           Welcome to MusicMuse!
         </Typography>
-        <Typography variant="h2" color="secondary" gutterBottom className="fadeInAnimation" style={{ animationDelay: '1s' }} >
+        <Typography variant="h2" color="secondary" gutterBottom className="fadeInAnimation" style={{ animationDelay: '0.5s' }} >
           Discover new music.
         </Typography>
         {!loggedIn && (
