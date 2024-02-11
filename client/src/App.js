@@ -24,20 +24,20 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false)
 
   useEffect(() => {
-    console.log("Token derived from URL: ", getTokenFromUrl())
-    const spotifyToken = getTokenFromUrl().access_token
-    window.location.hash = ""
+    console.log("Token derived from URL: ", getTokenFromUrl());
+    const spotifyToken = getTokenFromUrl().access_token;
+    window.location.hash = "";
     console.log("Spotify token: ", spotifyToken);
-
+  
     if (spotifyToken) {
-      setSpotifyToken(spotifyToken)
-      spotifyApi.setAccessToken(spotifyToken) 
+      setSpotifyToken(spotifyToken);
+      spotifyApi.setAccessToken(spotifyToken);
       spotifyApi.getMe().then((user) => {
-        console.log(user)
-      })
-      setLoggedIn(true)
+        console.log(user);
+      });
+      setLoggedIn(true);
     }
-  })
+  }, []);
   const getNowPlaying = () => {
     spotifyApi.getMyCurrentPlaybackState().then((response) => {
       console.log(response);
@@ -67,8 +67,11 @@ function App() {
         )}
         {loggedIn && (
           <>
-            <Typography variant="h6" style={{ fontWeight: 'bold', color: 'blue' }}>
-              Now Playing: {nowPlaying.name}
+            <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } }>
+              Now Playing
+            </Typography>
+            <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' } }>
+              {nowPlaying.name}
             </Typography>
             <div>
               <img src={nowPlaying.albumArt} style={{height: 150}}/>
