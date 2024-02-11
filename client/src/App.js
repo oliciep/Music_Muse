@@ -52,10 +52,10 @@ function App() {
     
     <div className="App">
       <Box sx={{ backgroundColor: 'cyan', minHeight: '100vh', position: 'fixed', top: 0, right: 0, bottom: 0, left: 0, margin: 0, padding: 0}}>
-        <Typography variant="h1" color="primary" gutterBottom>
+        <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation" >
           Welcome to MusicMuse!
         </Typography>
-        <Typography variant="h2" color="secondary" gutterBottom>
+        <Typography variant="h2" color="secondary" gutterBottom className="fadeInAnimation" style={{ animationDelay: '1s' }} >
           Discover new music.
         </Typography>
         {!loggedIn && (
