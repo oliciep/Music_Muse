@@ -70,13 +70,13 @@ function App() {
         {loggedIn && (
           <>
             <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } }>
-              User: {user.display_name}
+              Welcome {user.display_name}!
             </Typography>
-            <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } }>
+            <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' } }>
               Now Playing: {nowPlaying.name}
             </Typography>
             <div>
-              <img src={nowPlaying.albumArt} style={{height: 150}} alt="Album Art"/>
+              <img src={nowPlaying.albumArt} style={{height: 300}} alt="Album Art"/>
             </div>
           </>
         )}
