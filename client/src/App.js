@@ -20,36 +20,38 @@ const getTokenFromUrl = () => {
 
 function App() {  
   const [spotifyToken, setSpotifyToken] = useState("");
-  const [nowPlaying, setNowPlaying] = useState({})
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [nowPlaying, setNowPlaying] = useState({});
+  const [user, setUser] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     console.log("Token derived from URL: ", getTokenFromUrl());
     const spotifyToken = getTokenFromUrl().access_token;
     window.location.hash = "";
     console.log("Spotify token: ", spotifyToken);
-  
+
     if (spotifyToken) {
       setSpotifyToken(spotifyToken);
       spotifyApi.setAccessToken(spotifyToken);
       spotifyApi.getMe().then((user) => {
         console.log(user);
+        setUser(user);
       });
       setLoggedIn(true);
     }
   }, []);
+
   const getNowPlaying = () => {
     spotifyApi.getMyCurrentPlaybackState().then((response) => {
       console.log(response);
       setNowPlaying({
         name: response.item.name,
         albumArt: response.item.album.images[0].url
-      })
-    })
-  }
+      });
+    });
+  };
 
   return (
-    
     <div className="App">
       <Box sx={{ backgroundColor: 'cyan', minHeight: '100vh', position: 'fixed', top: 0, right: 0, bottom: 0, left: 0, margin: 0, padding: 0}}>
         <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation" >
@@ -68,13 +70,13 @@ function App() {
         {loggedIn && (
           <>
             <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } }>
-              Now Playing
+              User: {user.display_name}
             </Typography>
-            <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' } }>
-              {nowPlaying.name}
+            <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } }>
+              Now Playing: {nowPlaying.name}
             </Typography>
             <div>
-              <img src={nowPlaying.albumArt} style={{height: 150}}/>
+              <img src={nowPlaying.albumArt} style={{height: 150}} alt="Album Art"/>
             </div>
           </>
         )}
