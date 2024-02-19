@@ -77,8 +77,8 @@ function App() {
             <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '1.5s' }}> 
               Now Playing: {nowPlaying.name}
             </Typography>
-            <div>
-              <img src={nowPlaying.albumArt} style={{height: 300}} alt="Album Art"/>
+            <div className="fadeInAnimation" style={{ animationDelay: '2s' }}>
+              <img src={nowPlaying.albumArt} style={{ height: 300, opacity: 0, animation: 'fadeIn 1s ease-out forwards' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
             </div>
           </>
         )}
