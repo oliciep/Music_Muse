@@ -69,10 +69,10 @@ function App() {
         )}
         {loggedIn && (
           <>
-            <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } }>
+            <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '1s' }}>
               Welcome {user.display_name}!
             </Typography>
-            <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' } }>
+            <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '1.5s' }}> 
               Now Playing: {nowPlaying.name}
             </Typography>
             <div>
@@ -81,7 +81,7 @@ function App() {
           </>
         )}
         {loggedIn && (
-          <Button variant="contained" color="primary" onClick={() => getNowPlaying()}>Check Now Playing</Button>
+          <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '2s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
         )}
       </Box>
     </div>
