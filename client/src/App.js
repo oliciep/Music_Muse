@@ -54,10 +54,10 @@ function App() {
   return (
     <div className="App">
       <Box sx={{ backgroundColor: 'cyan', minHeight: '100vh', position: 'fixed', top: 0, right: 0, bottom: 0, left: 0, margin: 0, padding: 0}}>
-        <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation" >
-          Welcome to MusicMuse!
+        <Typography variant="h1" color="primary" className="fadeInAnimation" >
+          musicMuse
         </Typography>
-        <Typography variant="h2" color="secondary" gutterBottom className="fadeInAnimation" style={{ animationDelay: '0.5s' }} >
+        <Typography variant="h3" color="secondary" gutterBottom className="fadeInAnimation" style={{ animationDelay: '0.5s' }} >
           Discover new music.
         </Typography>
         {!loggedIn && (
@@ -69,10 +69,12 @@ function App() {
         )}
         {loggedIn && (
           <>
-            <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '1s' }}>
-              Welcome {user.display_name}!
-            </Typography>
-            <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '1.5s' }}> 
+            <div style={{ position: 'absolute', top: 10, right: 10 }}>
+              <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' }} gutterBottom className="fadeInAnimation" style={{ animationDelay: '1s' }}>
+                Welcome {user.display_name}!
+              </Typography>
+            </div>
+            <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '1.5s' }}> 
               Now Playing: {nowPlaying.name}
             </Typography>
             <div>
