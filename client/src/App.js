@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 const lightTheme = createTheme({
   palette: {
     primary: {
-      main: green[800], // green
+      main: green[700], // green
     },
     secondary: {
       main: green[300], // darker green
