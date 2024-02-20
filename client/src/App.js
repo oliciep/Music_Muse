@@ -3,9 +3,33 @@ import './App.css';
 import React, { useState, useEffect } from "react"
 import SpotifyWebApi from "spotify-web-api-js"
 
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { green } from '@mui/material/colors';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+
+const lightTheme = createTheme({
+  palette: {
+    primary: {
+      main: green[800], // green
+    },
+    secondary: {
+      main: green[300], // darker green
+    },
+  },
+});
+
+const darkTheme = createTheme({
+  palette: {
+    primary: {
+      main: green[400], // light green
+    },
+    secondary: {
+      main: green[800], // darker green
+    },
+  },
+}); 
 
 const spotifyApi = new SpotifyWebApi
 
@@ -52,41 +76,43 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Box sx={{ backgroundColor: 'cyan', minHeight: '100vh', position: 'fixed', top: 0, right: 0, bottom: 0, left: 0, margin: 0, padding: 0}}>
-        <Typography variant="h1" color="primary" className="fadeInAnimation" >
-          musicMuse
-        </Typography>
-        <Typography variant="h3" color="secondary" gutterBottom className="fadeInAnimation" style={{ animationDelay: '0.5s' }} >
-          Discover new music.
-        </Typography>
-        {!loggedIn && (
-          <> 
-            <Button variant="contained" color="primary" href="http://localhost:8888">
-              Log In to Spotify
-            </Button>
-          </>
-        )}
-        {loggedIn && (
-          <>
-            <div style={{ position: 'absolute', top: 10, right: 10 }}>
-              <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' }} gutterBottom className="fadeInAnimation" style={{ animationDelay: '1s' }}>
-                Welcome {user.display_name}!
+    <ThemeProvider theme={lightTheme}>
+      <div className="App">
+        <Box sx={{ backgroundColor: 'aquamarine', minHeight: '100vh', position: 'fixed', top: 0, right: 0, bottom: 0, left: 0, margin: 0, padding: 0}}>
+          <Typography variant="h1" color="primary" className="fadeInAnimation" >
+            musicMuse
+          </Typography>
+          <Typography variant="h3" color="secondary" gutterBottom className="fadeInAnimation" style={{ animationDelay: '0.5s' }} >
+            Discover new music.
+          </Typography>
+          {!loggedIn && (
+            <> 
+              <Button variant="contained" color="primary" href="http://localhost:8888">
+                Log In to Spotify
+              </Button>
+            </>
+          )}
+          {loggedIn && (
+            <>
+              <div style={{ position: 'absolute', top: 10, right: 10 }}>
+                <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' }} gutterBottom className="fadeInAnimation" style={{ animationDelay: '1s' }}>
+                  Welcome {user.display_name}!
+                </Typography>
+              </div>
+              <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '1.5s' }}> 
+                Now Playing: {nowPlaying.name}
               </Typography>
-            </div>
-            <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '1.5s' }}> 
-              Now Playing: {nowPlaying.name}
-            </Typography>
-            <div className="fadeInAnimation" style={{ animationDelay: '2s' }}>
-              <img src={nowPlaying.albumArt} style={{ height: 300, opacity: 0, animation: 'fadeIn 1s ease-out forwards' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
-            </div>
-          </>
-        )}
-        {loggedIn && (
-          <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '2s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
-        )}
-      </Box>
-    </div>
+              <div className="fadeInAnimation" style={{ animationDelay: '2s' }}>
+                <img src={nowPlaying.albumArt} style={{ height: 300, opacity: 0, animation: 'fadeIn 1s ease-out forwards' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
+              </div>
+            </>
+          )}
+          {loggedIn && (
+            <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '2s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
+          )}
+        </Box>
+      </div>
+    </ThemeProvider>
   );
 }
 
