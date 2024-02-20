@@ -47,6 +47,7 @@ function App() {
   const [nowPlaying, setNowPlaying] = useState({});
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   useEffect(() => {
     console.log("Token derived from URL: ", getTokenFromUrl());
@@ -68,25 +69,21 @@ function App() {
   const getNowPlaying = () => {
     spotifyApi.getMyCurrentPlaybackState().then((response) => {
       console.log(response);
-      if (response.item) {
-        setNowPlaying({
-          name: response.item.name,
-          albumArt: response.item.album.images[0].url
-        });
-      } else {
-        setNowPlaying({
-          name: "Nothing",
-          albumArt: null // or provide a placeholder image
-        });
-      }
+      setNowPlaying({
+        name: response.item ? response.item.name : "No song playing", 
+        albumArt: response.item ? response.item.album.images[0].url : null 
+      });
+      setButtonClicked(true);
     }).catch(error => {
       console.error("Error fetching now playing:", error);
       setNowPlaying({
         name: "Error fetching now playing",
-        albumArt: null // or provide a placeholder image
+        albumArt: null
       });
+      setButtonClicked(true); 
     });
   };
+
 
   return (
     <ThemeProvider theme={lightTheme}>
@@ -112,11 +109,15 @@ function App() {
                   Welcome {user.display_name}!
                 </Typography>
               </div>
-              <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '1.5s' }}> 
-                Now Playing: {nowPlaying.name}
-              </Typography>
+              {buttonClicked && (
+                <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '1.5s' }}> 
+                  Now Playing: {nowPlaying.name}
+                </Typography>
+              )}
               <div className="fadeInAnimation" style={{ animationDelay: '2s' }}>
-                <img src={nowPlaying.albumArt} style={{ height: 300, opacity: 0, animation: 'fadeIn 1s ease-out forwards' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
+                {nowPlaying.albumArt && (
+                  <img src={nowPlaying.albumArt} style={{ height: 300, opacity: 0, animation: 'fadeIn 1s ease-out forwards' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
+                )}
               </div>
             </>
           )}
