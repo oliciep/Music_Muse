@@ -68,9 +68,22 @@ function App() {
   const getNowPlaying = () => {
     spotifyApi.getMyCurrentPlaybackState().then((response) => {
       console.log(response);
+      if (response.item) {
+        setNowPlaying({
+          name: response.item.name,
+          albumArt: response.item.album.images[0].url
+        });
+      } else {
+        setNowPlaying({
+          name: "Nothing",
+          albumArt: null // or provide a placeholder image
+        });
+      }
+    }).catch(error => {
+      console.error("Error fetching now playing:", error);
       setNowPlaying({
-        name: response.item.name,
-        albumArt: response.item.album.images[0].url
+        name: "Error fetching now playing",
+        albumArt: null // or provide a placeholder image
       });
     });
   };
