@@ -112,7 +112,7 @@ function App() {
               {buttonClicked && (
                 <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '1.5s' }}> 
                   Now Playing: {nowPlaying.name}
-                </Typography>
+                </Typography> 
               )}
               <div className="fadeInAnimation" style={{ animationDelay: '2s' }}>
                 {nowPlaying.albumArt && (
