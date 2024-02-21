@@ -70,12 +70,12 @@ function App() {
     spotifyApi.getMyCurrentPlaybackState().then((response) => {
       console.log(response);
       setNowPlaying({
-        name: response.item ? response.item.name : "No song playing", 
+        name: response.item ? response.item.name : "Nothing", 
         albumArt: response.item ? response.item.album.images[0].url : null 
       });
       setButtonClicked(true);
     }).catch(error => {
-      console.error("Error fetching now playing:", error);
+      console.error("Error:", error);
       setNowPlaying({
         name: "Error fetching now playing",
         albumArt: null
@@ -105,12 +105,12 @@ function App() {
           {loggedIn && (
             <>
               <div style={{ position: 'absolute', top: 10, right: 10 }}>
-                <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' }} gutterBottom className="fadeInAnimation" style={{ animationDelay: '1s' }}>
+                <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' }} gutterBottom className="fadeInAnimation">
                   Welcome {user.display_name}!
                 </Typography>
               </div>
               {buttonClicked && (
-                <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '1.5s' }}> 
+                <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s' }}> 
                   Now Playing: {nowPlaying.name}
                 </Typography> 
               )}
@@ -122,7 +122,7 @@ function App() {
             </>
           )}
           {loggedIn && (
-            <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '2s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
+            <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
           )}
         </Box>
       </div>
