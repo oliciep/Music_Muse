@@ -15,7 +15,7 @@ const lightTheme = createTheme({
       main: green[700], // green
     },
     secondary: {
-      main: green[300], // darker green
+      main: green[400], // darker green
     },
   },
 });
@@ -69,20 +69,48 @@ function App() {
   const getNowPlaying = () => {
     spotifyApi.getMyCurrentPlaybackState().then((response) => {
       console.log(response);
-      setNowPlaying({
-        name: response.item ? response.item.name : "Nothing", 
-        albumArt: response.item ? response.item.album.images[0].url : null 
-      });
+      if(response.item) {
+        const track = response.item;
+        const trackInfo = {
+          name: track.name,
+          albumArt: track.album.images.length > 0 ? track.album.images[0].url : null,
+          artist: track.artists.map(artist => artist.name).join(", "),
+          album: track.album.name,
+          duration_ms: track.duration_ms,
+          popularity: track.popularity,
+          id: track.id,
+          uri: track.uri
+        };
+        setNowPlaying(trackInfo);
+      } else {
+        setNowPlaying({
+          name: "Nothing",
+          albumArt: null,
+          artist: "",
+          album: "",
+          duration_ms: 0,
+          popularity: 0,
+          id: "",
+          uri: ""
+        });
+      }
       setButtonClicked(true);
     }).catch(error => {
       console.error("Error:", error);
       setNowPlaying({
         name: "Error fetching now playing",
-        albumArt: null
+        albumArt: null,
+        artist: "",
+        album: "",
+        duration_ms: 0,
+        popularity: 0,
+        id: "",
+        uri: ""
       });
-      setButtonClicked(true); 
+      setButtonClicked(true);
     });
   };
+  
 
 
   return (
@@ -113,6 +141,11 @@ function App() {
                 <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s' }}> 
                   Now Playing: {nowPlaying.name}
                 </Typography> 
+              )}
+              {buttonClicked && (
+                <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s' }}> 
+                Popularity: {nowPlaying.popularity}
+              </Typography> 
               )}
               <div className="fadeInAnimation" style={{ animationDelay: '2s' }}>
                 {nowPlaying.albumArt && (
