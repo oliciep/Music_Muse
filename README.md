@@ -5,6 +5,7 @@ This project is a React based music recommendation application. It uses the Spot
 
 ## Features
 
+- Real time spotify song and tracking capabilities
 - REST API functionality using spotify web API.
 - React.JS integration for front end interface.
 
