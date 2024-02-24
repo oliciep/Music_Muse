@@ -98,10 +98,10 @@ function App() {
     }).catch(error => {
       console.error("Error:", error);
       setNowPlaying({
-        name: "Error fetching now playing",
+        name: "Error fetching song name",
         albumArt: null,
         artist: "",
-        album: "",
+        album: "Error fetching album",
         duration_ms: 0,
         popularity: 0,
         id: "",
