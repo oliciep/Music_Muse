@@ -87,7 +87,7 @@ function App() {
           name: "Nothing",
           albumArt: null,
           artist: "",
-          album: "",
+          album: "None",
           duration_ms: 0,
           popularity: 0,
           id: "",
@@ -109,6 +109,23 @@ function App() {
       });
       setButtonClicked(true);
     });
+  };
+
+  const createPlaylist = () => {
+    if (!user) {
+      console.error("User information not available.");
+      return;
+    }
+
+    const playlistName = "My New Playlist";
+
+    spotifyApi.createPlaylist(user.id, { name: playlistName })
+      .then((response) => {
+        console.log("Playlist created:", response);
+      })
+      .catch((error) => {
+        console.error("Error creating playlist:", error);
+      });
   };
   
 
@@ -152,6 +169,7 @@ function App() {
                   <img src={nowPlaying.albumArt} style={{ height: 300, opacity: 0, animation: 'fadeIn 1s ease-out forwards' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
                 )}
               </div>
+              <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
             </>
           )}
           {loggedIn && (
