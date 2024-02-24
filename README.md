@@ -1,21 +1,10 @@
+# Spotify Web API Examples
 
-# My Music Recommendation Application
+## Contents
 
-This project is a React based music recommendation application. It uses the Spotify API in order to fetch music information. The front end of the project uses React.JS to create the interface.
-
-## Features
-
-- Real time spotify song and tracking capabilities
-- REST API functionality using spotify web API.
-- React.JS integration for front end interface.
-
- 
-## Acknowledgements
- - [Spotify API](https://developer.spotify.com/documentation/web-api)
-
-
-
-## Authors
-
-- [@oliciep](https://github.com/oliciep)
-
+- Authorization examples
+    - [Authorization Code]( /authorization/authorization_code/)
+    - [Authorization Code with PKCE extension]( /authorization/authorization_code_pkce/)
+    - [Client Credentials](/authorization/client_credentials)
+    - [Implicit Grant](/authorization/implicit_grant/)
+- [Get User Profile example](/get_user_profile/)
