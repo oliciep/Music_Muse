@@ -117,7 +117,7 @@ function App() {
       return;
     }
 
-    const playlistName = "MusicMuse Playlist";
+    const playlistName = "My New Playlist";
 
     spotifyApi.createPlaylist(user.id, { name: playlistName })
       .then((response) => {
