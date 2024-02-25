@@ -168,12 +168,12 @@ function App() {
               </div>
               {buttonClicked && (
                 <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s' }}> 
-                  Now Playing: <i>{nowPlaying.name}</i> by <i>{nowPlaying.artist}</i>
+                  Now Playing: <i>{nowPlaying.name}</i> by <b>{nowPlaying.artist}</b>
                 </Typography> 
               )}
               {buttonClicked && (
                 <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s' }}> 
-                Album: <i>{nowPlaying.album}</i>
+                Album: <b>{nowPlaying.album}</b>
               </Typography> 
               )}
               <div className="fadeInAnimation" style={{ animationDelay: '2s' }}>
@@ -181,11 +181,11 @@ function App() {
                   <img src={nowPlaying.albumArt} style={{ height: 300, opacity: 0, animation: 'fadeIn 1s ease-out forwards' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
                 )}
               </div>
-              <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button> <br></br><br></br>
+              <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
             </>
           )}
           {loggedIn && (
-            <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
+            <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
           )}
         </Box>
       </div>

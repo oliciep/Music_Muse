@@ -146,10 +146,10 @@ function App() {
     <ThemeProvider theme={lightTheme}>
       <div className="App">
         <Box sx={{ backgroundColor: 'aquamarine', minHeight: '100vh', position: 'fixed', top: 0, right: 0, bottom: 0, left: 0, margin: 0, padding: 0}}>
-          <Typography variant="h1" color="primary" className="fadeInAnimation" >
+          <Typography variant="h1" color="primary" className="fadeInAnimation">
             musicMuse
           </Typography>
-          <Typography variant="h3" color="secondary" gutterBottom className="fadeInAnimation" style={{ animationDelay: '0.5s' }} >
+          <Typography variant="h3" color="secondary" gutterBottom className="fadeInAnimation" style={{ animationDelay: '0.5s' }}>
             Discover new music.
           </Typography>
           {!loggedIn && (
@@ -167,25 +167,20 @@ function App() {
                 </Typography>
               </div>
               {buttonClicked && (
-                <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s' }}> 
-                  Now Playing: <i>{nowPlaying.name}</i> by <i>{nowPlaying.artist}</i>
-                </Typography> 
+                <>
+                  <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' }} className="fadeInAnimation" style={{ animationDelay: '0.5s' }}> 
+                    Now Playing: <i>{nowPlaying.name}</i> by <i>{nowPlaying.artist}</i>
+                  </Typography>
+                  <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' }} className="fadeInAnimation" style={{ animationDelay: '0.5s' }}> 
+                    Album: <i>{nowPlaying.album}</i>
+                  </Typography>
+                  <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
+                </>
               )}
-              {buttonClicked && (
-                <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s' }}> 
-                Album: <i>{nowPlaying.album}</i>
-              </Typography> 
+              {loggedIn && (
+                <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s', marginTop: '10px' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
               )}
-              <div className="fadeInAnimation" style={{ animationDelay: '2s' }}>
-                {nowPlaying.albumArt && (
-                  <img src={nowPlaying.albumArt} style={{ height: 300, opacity: 0, animation: 'fadeIn 1s ease-out forwards' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
-                )}
-              </div>
-              <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button> <br></br><br></br>
             </>
-          )}
-          {loggedIn && (
-            <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
           )}
         </Box>
       </div>
