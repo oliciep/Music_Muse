@@ -119,30 +119,27 @@ function App() {
   
     const playlistName = "MusicMuse Playlist";
   
-    // Step 1: Create the playlist
+    // Create the playlist
     spotifyApi.createPlaylist(user.id, { name: playlistName })
       .then((playlist) => {
         console.log("Playlist created:", playlist);
-        
-        // Step 2: Call function to add tracks to the playlist
-        addTracksToPlaylist(playlist.id, 'spotify:track:5BLRxUeMQFa4cK61ljrNiF');
+  
+        // Assuming you have a track URI, you can add it to the playlist
+        const trackUri = 'spotify:track:5BLRxUeMQFa4cK61ljrNiF'; // Example track URI
+  
+        spotifyApi.addTracksToPlaylist(user.id, playlist.id, [trackUri])
+          .then(() => {
+            console.log("Track added to playlist successfully.");
+          })
+          .catch((error) => {
+            console.error("Error adding track to playlist:", error);
+          });
       })
       .catch((error) => {
         console.error("Error creating playlist:", error);
       });
   };
   
-
-  const addTracksToPlaylist = (playlistId, trackUri) => {
-    // Step 3: Add the track to the playlist
-    spotifyApi.addTracksToPlaylist(playlistId, [trackUri])
-      .then((response) => {
-        console.log("Track added to the playlist:", response);
-      })
-      .catch((error) => {
-        console.error("Error adding track to playlist:", error);
-      });
-  };
 
 
   return (

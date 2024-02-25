@@ -116,15 +116,13 @@ function App() {
       console.error("User information not available.");
       return;
     }
-  
+
     const playlistName = "MusicMuse Playlist";
-  
-    // Step 1: Create the playlist
+
     spotifyApi.createPlaylist(user.id, { name: playlistName })
-      .then((playlist) => {
-        console.log("Playlist created:", playlist);
-        
-        // Step 2: Call function to add tracks to the playlist
+      .then((response) => {
+        console.log("Playlist created:", response);
+
         addTracksToPlaylist(playlist.id, 'spotify:track:5BLRxUeMQFa4cK61ljrNiF');
       })
       .catch((error) => {
