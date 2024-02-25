@@ -168,7 +168,7 @@ function App() {
               </div>
               {buttonClicked && (
                 <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s' }}> 
-                  Now Playing: {nowPlaying.name} by {nowPlaying.artist}
+                  Now Playing: {nowPlaying.name}
                 </Typography> 
               )}
               {buttonClicked && (
@@ -181,7 +181,7 @@ function App() {
                   <img src={nowPlaying.albumArt} style={{ height: 300, opacity: 0, animation: 'fadeIn 1s ease-out forwards' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
                 )}
               </div>
-              <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
+              <Button variant="contained" color="primary" gutterBottom className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
             </>
           )}
           {loggedIn && (
