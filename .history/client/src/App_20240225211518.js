@@ -111,23 +111,36 @@ function App() {
     });
   };
 
-  const createPlaylist = () => {
-    if (!user) {
-      console.error("User information not available.");
-      return;
+  const createPlaylist = async () => {
+    try {
+      if (!user) {
+        console.error("User information not available.");
+        return;
+      }
+    
+      const playlistName = "MusicMuse Playlist";
+    
+      // Create the playlist
+      const playlist = await spotifyApi.createPlaylist(user.id, { name: playlistName });
+      console.log("Playlist created:", playlist.id);
+      
+      // Get the currently playing track
+      const nowPlaying = await getNowPlaying();
+      const trackUri = nowPlaying ? nowPlaying.uri : null;
+      console.log(trackUri)
+      
+      if (trackUri) {
+        // Add the track to the playlist
+        await addTracksToPlaylist(playlist.id, trackUri);
+        console.log("Track added to the playlist.");
+      } else {
+        console.error("No currently playing track found.");
+      }
+    } catch (error) {
+      console.error("Error creating playlist or adding track:", error);
     }
-  
-    const playlistName = "MusicMuse Playlist";
-  
-    spotifyApi.createPlaylist(user.id, { name: playlistName })
-      .then((playlist) => {
-        console.log("Playlist created:", playlist.id);
-        addTracksToPlaylist(playlist.id, 'spotify:track:5BLRxUeMQFa4cK61ljrNiF');
-      })
-      .catch((error) => {
-        console.error("Error creating playlist:", error);
-      });
   };
+  
   
 
   const addTracksToPlaylist = (playlistId, trackUri) => {

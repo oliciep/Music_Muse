@@ -121,7 +121,7 @@ function App() {
   
     spotifyApi.createPlaylist(user.id, { name: playlistName })
       .then((playlist) => {
-        console.log("Playlist created:", playlist.id);
+        console.log("Playlist created:", playlist);
         addTracksToPlaylist(playlist.id, 'spotify:track:5BLRxUeMQFa4cK61ljrNiF');
       })
       .catch((error) => {

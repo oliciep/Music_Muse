@@ -34,12 +34,10 @@ const darkTheme = createTheme({
 const spotifyApi = new SpotifyWebApi
 
 const getTokenFromUrl = () => {
-  return window.location.hash.substring(1).split('&').reduce((initial, item) => {
-    let parts = item.split("=");
-    initial[parts[0]] = decodeURIComponent(parts[1]);
-    return initial;
-  }, {});
-}
+  const hash = window.location.hash.substring(1);
+  const params = new URLSearchParams(hash);
+  return params.has('access_token') ? params.get('access_token') : null;
+};
 
 
 function App() {  
@@ -111,22 +109,34 @@ function App() {
     });
   };
 
-  const createPlaylist = () => {
-    if (!user) {
-      console.error("User information not available.");
-      return;
+  const createPlaylist = async () => {
+    try {
+      if (!user) {
+        console.error("User information not available.");
+        return;
+      }
+    
+      const playlistName = "MusicMuse Playlist";
+    
+      // Get the currently playing track
+      const nowPlaying = await getNowPlaying();
+      const trackUri = nowPlaying ? nowPlaying.uri : null;
+      
+      if (!trackUri) {
+        console.error("No currently playing track found.");
+        return;
+      }
+      
+      // Create the playlist
+      const playlist = await spotifyApi.createPlaylist(user.id, { name: playlistName });
+      console.log("Playlist created:", playlist.id);
+      
+      // Add the track to the playlist
+      await addTracksToPlaylist(playlist.id, trackUri);
+      console.log("Track added to the playlist.");
+    } catch (error) {
+      console.error("Error creating playlist or adding track:", error);
     }
-  
-    const playlistName = "MusicMuse Playlist";
-  
-    spotifyApi.createPlaylist(user.id, { name: playlistName })
-      .then((playlist) => {
-        console.log("Playlist created:", playlist.id);
-        addTracksToPlaylist(playlist.id, 'spotify:track:5BLRxUeMQFa4cK61ljrNiF');
-      })
-      .catch((error) => {
-        console.error("Error creating playlist:", error);
-      });
   };
   
 

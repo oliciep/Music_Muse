@@ -122,10 +122,19 @@ function App() {
     spotifyApi.createPlaylist(user.id, { name: playlistName })
       .then((playlist) => {
         console.log("Playlist created:", playlist.id);
-        addTracksToPlaylist(playlist.id, 'spotify:track:5BLRxUeMQFa4cK61ljrNiF');
+        // Return an object containing the playlist id
+        return {
+          playlistId: playlist.id,
+          nowPlaying: getNowPlaying() // Return the promise from getNowPlaying
+        };
+      })
+      .then(({ playlistId, nowPlaying }) => {
+        const trackUri = nowPlaying.uri;
+        console.log("Track URI is", trackUri)
+        addTracksToPlaylist(playlistId, trackUri);
       })
       .catch((error) => {
-        console.error("Error creating playlist:", error);
+        console.error("Error creating playlist or adding track:", error);
       });
   };
   

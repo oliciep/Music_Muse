@@ -121,7 +121,8 @@ function App() {
   
     spotifyApi.createPlaylist(user.id, { name: playlistName })
       .then((playlist) => {
-        console.log("Playlist created:", playlist.id);
+        console.log("Playlist created:", playlist);
+        
         addTracksToPlaylist(playlist.id, 'spotify:track:5BLRxUeMQFa4cK61ljrNiF');
       })
       .catch((error) => {
@@ -180,8 +181,7 @@ function App() {
                   <img src={nowPlaying.albumArt} style={{ height: 300, opacity: 0, animation: 'fadeIn 1s ease-out forwards' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
                 )}
               </div>
-              <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
-              <br></br><br></br>
+              <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button> <br></br><br></br>
             </>
           )}
           {loggedIn && (
