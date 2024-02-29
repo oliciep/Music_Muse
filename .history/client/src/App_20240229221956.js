@@ -8,7 +8,6 @@ import { green } from '@mui/material/colors';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
 
 const lightTheme = createTheme({
   palette: {
@@ -49,8 +48,6 @@ function App() {
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
-  const [topArtists, setTopArtists] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     console.log("Token derived from URL: ", getTokenFromUrl());
@@ -147,52 +144,6 @@ function App() {
       });
   };
 
-  const getTopRecentlyPlayedArtists = (tracks) => {
-    const artistsMap = {};
-  
-    // Iterate through the recently played tracks and count the occurrences of each artist
-    tracks.forEach(track => {
-      track.artists.forEach(artist => {
-        const artistName = artist.name;
-        if (artistsMap[artistName]) {
-          artistsMap[artistName]++;
-        } else {
-          artistsMap[artistName] = 1;
-        }
-      });
-    });
-
-    // Convert the artistsMap into an array of objects for easier sorting
-    const artistsArray = Object.keys(artistsMap).map(artist => ({ name: artist, count: artistsMap[artist] }));
-
-    // Sort the artistsArray by the count in descending order
-    artistsArray.sort((a, b) => b.count - a.count);
-
-    // Return the top 5 recently played artists
-    return artistsArray.slice(0, 5);
-  };
-
-  const getRecentlyPlayedArtists = () => {
-    spotifyApi.getMyRecentlyPlayedTracks({ limit: 50 })
-      .then((response) => {
-        const tracks = response.items.map(item => item.track);
-        const topArtists = getTopRecentlyPlayedArtists(tracks);
-        console.log("Top 5 recently played artists:", topArtists);
-        setTopArtists(topArtists);
-        handleModalOpen();
-      })
-      .catch((error) => {
-        console.error("Error fetching recently played tracks:", error);
-      });
-  };
-
-  const handleModalOpen = () => {
-    setModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setModalOpen(false);
-  };
 
   return (
     <ThemeProvider theme={lightTheme}>
@@ -235,26 +186,10 @@ function App() {
               </div>
               <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
               <br></br><br></br>
-              <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
-              <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={getRecentlyPlayedArtists}>Top Recently Played Artists</Button>
-              <Modal
-                open={modalOpen}
-                onClose={handleModalClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', border: '2px solid #000', boxShadow: 24, p: 4 }}>
-                  <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Top 5 Recently Played Artists
-                  </Typography>
-                  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    {topArtists.map((artist, index) => (
-                      <div key={index}>{index + 1}. {artist.name}</div>
-                    ))}
-                  </Typography>
-                </Box>
-              </Modal>
             </>
+          )}
+          {loggedIn && (
+            <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
           )}
         </Box>
       </div>

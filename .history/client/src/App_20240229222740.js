@@ -8,7 +8,6 @@ import { green } from '@mui/material/colors';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
 
 const lightTheme = createTheme({
   palette: {
@@ -49,8 +48,6 @@ function App() {
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
-  const [topArtists, setTopArtists] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     console.log("Token derived from URL: ", getTokenFromUrl());

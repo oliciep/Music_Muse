@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-import './App.css';
 import React, { useState, useEffect } from "react"
 import SpotifyWebApi from "spotify-web-api-js"
 
@@ -32,7 +30,7 @@ const darkTheme = createTheme({
   },
 }); 
 
-const spotifyApi = new SpotifyWebApi
+const spotifyApi = new SpotifyWebApi();
 
 const getTokenFromUrl = () => {
   return window.location.hash.substring(1).split('&').reduce((initial, item) => {
@@ -40,8 +38,7 @@ const getTokenFromUrl = () => {
     initial[parts[0]] = decodeURIComponent(parts[1]);
     return initial;
   }, {});
-}
-
+};
 
 function App() {  
   const [spotifyToken, setSpotifyToken] = useState("");
@@ -135,7 +132,6 @@ function App() {
         console.error("Error creating playlist:", error);
       });
   };
-  
 
   const addTracksToPlaylist = (playlistId, trackUri) => {
     spotifyApi.addTracksToPlaylist(playlistId, [trackUri])

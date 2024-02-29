@@ -8,7 +8,6 @@ import { green } from '@mui/material/colors';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
 
 const lightTheme = createTheme({
   palette: {
@@ -49,8 +48,6 @@ function App() {
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
-  const [topArtists, setTopArtists] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     console.log("Token derived from URL: ", getTokenFromUrl());
@@ -149,7 +146,7 @@ function App() {
 
   const getTopRecentlyPlayedArtists = (tracks) => {
     const artistsMap = {};
-  
+    
     // Iterate through the recently played tracks and count the occurrences of each artist
     tracks.forEach(track => {
       track.artists.forEach(artist => {
@@ -161,38 +158,29 @@ function App() {
         }
       });
     });
-
+  
     // Convert the artistsMap into an array of objects for easier sorting
     const artistsArray = Object.keys(artistsMap).map(artist => ({ name: artist, count: artistsMap[artist] }));
-
+  
     // Sort the artistsArray by the count in descending order
     artistsArray.sort((a, b) => b.count - a.count);
-
+  
     // Return the top 5 recently played artists
     return artistsArray.slice(0, 5);
   };
-
+  
   const getRecentlyPlayedArtists = () => {
     spotifyApi.getMyRecentlyPlayedTracks({ limit: 50 })
       .then((response) => {
         const tracks = response.items.map(item => item.track);
         const topArtists = getTopRecentlyPlayedArtists(tracks);
         console.log("Top 5 recently played artists:", topArtists);
-        setTopArtists(topArtists);
-        handleModalOpen();
       })
       .catch((error) => {
         console.error("Error fetching recently played tracks:", error);
       });
   };
 
-  const handleModalOpen = () => {
-    setModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setModalOpen(false);
-  };
 
   return (
     <ThemeProvider theme={lightTheme}>
