@@ -78,7 +78,7 @@ function App() {
         const trackInfo = {
           name: track.name,
           albumArt: track.album.images.length > 0 ? track.album.images[0].url : null,
-          artist: track.artists.map(artist => artist.name).join(", "),
+          artist: "by " +  track.artists.map(artist => artist.name).join(", "),
           album: track.album.name,
           duration_ms: track.duration_ms,
           popularity: track.popularity,
@@ -88,9 +88,9 @@ function App() {
         setNowPlaying(trackInfo);
       } else {
         setNowPlaying({
-          name: "Nothing",
+          name: "None",
           albumArt: null,
-          artist: "Noone",
+          artist: "",
           album: "None",
           duration_ms: 0,
           popularity: 0,
@@ -215,7 +215,7 @@ function App() {
                   Welcome {user.display_name}!
                 </Typography>
               </div>
-              <div style={{ backgroundColor: '#52bf90', display: 'inline-block', borderRadius: '8px', padding: '10px' }}>
+              <div style={{ backgroundColor: '#52bf90', display: 'inline-block', borderRadius: '8px', borderColor: '#419873', borderWidth: '3px', borderStyle: 'solid',  padding: '10px' }}>
                 <Grid container justifyContent="center" alignItems="center" className="fadeInAnimation" style={{ animationDelay: '2s' }}>
                   {nowPlaying.albumArt && (
                     <Grid item>
@@ -225,7 +225,7 @@ function App() {
                   <Grid item>
                     {buttonClicked && (
                       <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s', marginLeft: '10px' }}> 
-                        Now Playing: <i>{nowPlaying.name}</i> by <i>{nowPlaying.artist}</i>
+                        Song: <i>{nowPlaying.name}</i> <i>{nowPlaying.artist}</i>
                       </Typography> 
                     )}
                     {buttonClicked && (
