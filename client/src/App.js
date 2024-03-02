@@ -66,6 +66,7 @@ function App() {
       spotifyApi.getMe().then((user) => {
         console.log(user);
         setUser(user);
+        getRecentlyPlayedArtists();
       });
       setLoggedIn(true);
     }
