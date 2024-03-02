@@ -8,6 +8,7 @@ import { green } from '@mui/material/colors';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 import Modal from '@mui/material/Modal';
 
 const lightTheme = createTheme({
@@ -214,21 +215,28 @@ function App() {
                   Welcome {user.display_name}!
                 </Typography>
               </div>
-              {buttonClicked && (
-                <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s' }}> 
-                  Now Playing: <i>{nowPlaying.name}</i> by <i>{nowPlaying.artist}</i>
-                </Typography> 
-              )}
-              {buttonClicked && (
-                <Typography variant="h5" color="secondary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s' }}> 
-                Album: <i>{nowPlaying.album}</i>
-              </Typography> 
-              )}
-              <div className="fadeInAnimation" style={{ animationDelay: '2s' }}>
-                {nowPlaying.albumArt && (
-                  <img src={nowPlaying.albumArt} style={{ height: 300, opacity: 0, animation: 'fadeIn 1s ease-out forwards' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
-                )}
+              <div style={{ backgroundColor: '#52bf90', display: 'inline-block', borderRadius: '8px', padding: '10px' }}>
+                <Grid container justifyContent="center" alignItems="center" className="fadeInAnimation" style={{ animationDelay: '2s' }}>
+                  {nowPlaying.albumArt && (
+                    <Grid item>
+                      <img src={nowPlaying.albumArt} style={{ height: 100, opacity: 0, animation: 'fadeIn 1s ease-out forwards', marginRight: '10px' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
+                    </Grid>
+                  )}
+                  <Grid item>
+                    {buttonClicked && (
+                      <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s', marginLeft: '10px' }}> 
+                        Now Playing: <i>{nowPlaying.name}</i> by <i>{nowPlaying.artist}</i>
+                      </Typography> 
+                    )}
+                    {buttonClicked && (
+                      <Typography variant="h5" color="#317256" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s', marginLeft: '10px' }}> 
+                        Album: <i>{nowPlaying.album}</i>
+                      </Typography> 
+                    )}
+                  </Grid>
+                </Grid>
               </div>
+              <br></br><br></br>
               <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
               <br></br><br></br>
               <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={getRecentlyPlayedArtists}>Top Recently Played Artists</Button>
