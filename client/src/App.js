@@ -237,10 +237,10 @@ function App() {
                       </Grid>
                     )}
                     <Grid item>
-                      <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s', marginLeft: '10px' }}> 
+                      <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ marginLeft: '10px' }}> 
                         Song: <i>{nowPlaying.name}</i> <i>{nowPlaying.artist}</i>
                       </Typography> 
-                      <Typography variant="h5" color="#317256" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ animationDelay: '0.5s', marginLeft: '10px' }}> 
+                      <Typography variant="h5" color="#317256" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ marginLeft: '10px' }}> 
                         Album: <i>{nowPlaying.album}</i>
                       </Typography> 
                     </Grid>
@@ -250,18 +250,24 @@ function App() {
 
               <br></br><br></br>
 
-              <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
+              <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
               
               <div style={{ marginBottom: '100vh' }}></div> {}
 
+              <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation" >
+                Your top artists.
+              </Typography>
               <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={getRecentlyPlayedArtists}>Top Recent Artists</Button>
 
               <div style={{ marginBottom: '100vh' }}></div> {}
-
-              <Button variant="contained" color="primary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
-
-              <br></br><br></br>
               
+              <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation" >
+                Get a custom playlist made.
+              </Typography>
+              <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
+
+              <div style={{ marginBottom: '100vh' }}></div> {}
+
               <Modal
                 open={modalOpen}
                 onClose={handleModalClose}
