@@ -257,7 +257,17 @@ function App() {
               <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation" >
                 Your top artists.
               </Typography>
-              <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={getRecentlyPlayedArtists}>Top Recent Artists</Button>
+
+              <Box>
+                <Typography variant="h2" color="secondary">
+                  Top 5 Recently Played Artists
+                </Typography>
+                {topArtists.map((artist, index) => (
+                  <Typography key={index} sx={{ mt: 2 }} color="primary" variant="h3">
+                    {index + 1}. {artist.name}
+                  </Typography>
+                ))}
+              </Box>
 
               <div style={{ marginBottom: '100vh' }}></div> {}
               
@@ -267,24 +277,6 @@ function App() {
               <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
 
               <div style={{ marginBottom: '100vh' }}></div> {}
-
-              <Modal
-                open={modalOpen}
-                onClose={handleModalClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'aquamarine', border: '2px solid #000', boxShadow: 24, p: 4 }}>
-                  <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Top 5 Recently Played Artists
-                  </Typography>
-                  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    {topArtists.map((artist, index) => (
-                      <div key={index}>{index + 1}. {artist.name}</div>
-                    ))}
-                  </Typography>
-                </Box>
-              </Modal>
             </>
           )}
         </Box>
