@@ -255,7 +255,7 @@ function App() {
                 </Typography>
               </div>
               {buttonClicked && (
-                <div className="fadeInAnimation" style={{ animationDelay: '2s', backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', borderRadius: '8px', borderColor: '#419873', borderWidth: '3px', borderStyle: 'solid',  padding: '10px' }}> 
+                <div className="fadeInAnimation" style={{ animationDelay: '2s', backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', borderRadius: '8px', borderColor: '#419873', borderWidth: '3px', borderStyle: 'solid',  padding: '10px 20px 10px 0px' }}> 
                   <Grid container justifyContent="center" alignItems="center">
                     {nowPlaying.albumArt && (
                       <Grid item>
@@ -284,16 +284,16 @@ function App() {
                 Your top artists.
               </Typography>
 
-              <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', borderRadius: '8px', borderColor: '#419873', borderWidth: '3px', borderStyle: 'solid',  padding: '10px' }}> 
+              <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', width: '60vw', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}>
                 <Box>
                   <Typography variant="h2" color="secondary">
                     Top 5 Recently Played Artists
                   </Typography>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                     {topArtists.map((artist, index) => (
                       <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
                         {artist.image && (
-                          <img src={artist.image} alt="Artist" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
+                          <img src={artist.image} alt="Artist" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
                         )}
                         <Typography variant="h3" color="primary">
                           {index + 1}. {artist.name}
@@ -303,6 +303,7 @@ function App() {
                   </div>
                 </Box>
               </div>
+
 
               <div style={{ marginBottom: '100vh' }}></div> {}
               
