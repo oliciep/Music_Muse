@@ -54,6 +54,7 @@ function App() {
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [topTracks, setTopTracks] = useState([]);
   const [topArtists, setTopArtists] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -69,6 +70,7 @@ function App() {
       spotifyApi.getMe().then((user) => {
         console.log(user);
         setUser(user);
+        getRecentlyPlayedTracks();
         getRecentlyPlayedArtists();
       });
       setLoggedIn(true);
@@ -150,6 +152,62 @@ function App() {
       })
       .catch((error) => {
         console.error("Error adding track to playlist:", error);
+      });
+  };
+
+  const getTopRecentlyPlayedTracks = (tracks) => {
+    const tracksMap = {};
+  
+    tracks.forEach((track) => {
+      const trackId = track.id;
+      const trackName = track.name;
+      if (tracksMap[trackId]) {
+        tracksMap[trackId].count++;
+      } else {
+        tracksMap[trackId] = { count: 1, name: trackName };
+      }
+    });
+  
+    const tracksArray = Object.keys(tracksMap).map((trackId) => ({
+      id: trackId,
+      name: tracksMap[trackId].name,
+      count: tracksMap[trackId].count,
+    }));
+  
+    tracksArray.sort((a, b) => b.count - a.count);
+  
+    return tracksArray.slice(0, 5);
+  };
+  
+  const getRecentlyPlayedTracks = () => {
+    spotifyApi
+      .getMyRecentlyPlayedTracks({ limit: 50 })
+      .then(async (response) => {
+        const tracks = response.items.map((item) => item.track);
+        const topTracks = getTopRecentlyPlayedTracks(tracks);
+        const tracksWithImages = await Promise.all(
+          topTracks.map(async (track) => {
+            try {
+              const trackData = await spotifyApi.getTrack(track.id);
+              return {
+                ...track,
+                image: trackData.album.images.length > 0 ? trackData.album.images[0].url : null,
+              };
+            } catch (error) {
+              console.error("Error fetching track data:", error);
+              return {
+                ...track,
+                image: null,
+              };
+            }
+          })
+        );
+        console.log("Top 5 recently played tracks with images:", tracksWithImages);
+        setTopTracks(tracksWithImages);
+        handleModalOpen();
+      })
+      .catch((error) => {
+        console.error("Error fetching recently played tracks:", error);
       });
   };
 
@@ -255,7 +313,7 @@ function App() {
                 </Typography>
               </div>
               {buttonClicked && (
-                <div className="fadeInAnimation" style={{ animationDelay: '2s', backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', borderRadius: '8px', borderColor: '#419873', borderWidth: '3px', borderStyle: 'solid',  padding: '10px 20px 10px 0px' }}> 
+                <div className="fadeInAnimation" style={{ animationDelay: '2s', backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', borderRadius: '8px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid',  padding: '10px 20px 10px 0px' }}> 
                   <Grid container justifyContent="center" alignItems="center">
                     {nowPlaying.albumArt && (
                       <Grid item>
@@ -286,11 +344,8 @@ function App() {
 
               <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', width: '60vw', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}>
                 <Box>
-                  <Typography variant="h2" color="secondary">
-                    Top 5 Recently Played Artists
-                  </Typography>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                    {topArtists.map((artist, index) => (
+                   {topArtists.map((artist, index) => (
                       <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
                         {artist.image && (
                           <img src={artist.image} alt="Artist" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
@@ -303,7 +358,23 @@ function App() {
                   </div>
                 </Box>
               </div>
-
+              
+              <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', width: '60vw', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}>
+                <Box>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                    {topTracks.map((track, index) => (
+                      <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                        {track.album && track.album.image && (
+                          <img src={track.album.image.url} alt="Track Album" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
+                        )}
+                        <Typography variant="h3" color="primary">
+                          {index + 1}. {track.name}
+                        </Typography>
+                      </div>
+                    ))}
+                  </div>
+                </Box>
+              </div>
 
               <div style={{ marginBottom: '100vh' }}></div> {}
               
