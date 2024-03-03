@@ -8,17 +8,17 @@ import { green } from '@mui/material/colors';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Modal from '@mui/material/Modal';
 
+
+// Light theme colour palette
 const lightTheme = createTheme({
   palette: {
     primary: {
-      main: green[800], // green
+      main: green[800], 
     },
     secondary: {
-      main: green[500], // darker green
+      main: green[500],
     },
     tertiary: {
       main: green[300]
@@ -26,19 +26,21 @@ const lightTheme = createTheme({
   },
 });
 
+// Dark theme colour palette
 const darkTheme = createTheme({
   palette: {
     primary: {
-      main: green[400], // light green
+      main: green[400],
     },
     secondary: {
-      main: green[800], // darker green
+      main: green[800],
     },
   },
 }); 
 
 const spotifyApi = new SpotifyWebApi
 
+// Function to retrieve parameters from URL, retrieves spotify access token
 const getTokenFromUrl = () => {
   return window.location.hash.substring(1).split('&').reduce((initial, item) => {
     let parts = item.split("=");
@@ -47,8 +49,9 @@ const getTokenFromUrl = () => {
   }, {});
 }
 
-
+// Main logic for application's function
 function App() {  
+  
   const [spotifyToken, setSpotifyToken] = useState("");
   const [nowPlaying, setNowPlaying] = useState({});
   const [user, setUser] = useState({});
@@ -56,7 +59,6 @@ function App() {
   const [buttonClicked, setButtonClicked] = useState(false);
   const [topTracks, setTopTracks] = useState([]);
   const [topArtists, setTopArtists] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     console.log("Token derived from URL: ", getTokenFromUrl());
@@ -205,7 +207,6 @@ function App() {
         );
         console.log("Top 5 recently played tracks with images:", tracksWithImages);
         setTopTracks(tracksWithImages);
-        handleModalOpen();
       })
       .catch((error) => {
         console.error("Error fetching recently played tracks:", error);
@@ -262,19 +263,10 @@ function App() {
         );
         console.log("Top 5 recently played artists with images:", artistsWithImages);
         setTopArtists(artistsWithImages);
-        handleModalOpen();
       })
       .catch((error) => {
         console.error("Error fetching recently played tracks:", error);
       });
-  };
-
-  const handleModalOpen = () => {
-    setModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setModalOpen(false);
   };
 
   return (
