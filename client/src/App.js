@@ -15,11 +15,14 @@ import Modal from '@mui/material/Modal';
 const lightTheme = createTheme({
   palette: {
     primary: {
-      main: green[700], // green
+      main: green[800], // green
     },
     secondary: {
-      main: green[400], // darker green
+      main: green[500], // darker green
     },
+    tertiary: {
+      main: green[300]
+    }
   },
 });
 
@@ -252,7 +255,7 @@ function App() {
                 </Typography>
               </div>
               {buttonClicked && (
-                <div className="fadeInAnimation" style={{ animationDelay: '2s', backgroundColor: '#52bf90', display: 'inline-block', borderRadius: '8px', borderColor: '#419873', borderWidth: '3px', borderStyle: 'solid',  padding: '10px' }}> 
+                <div className="fadeInAnimation" style={{ animationDelay: '2s', backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', borderRadius: '8px', borderColor: '#419873', borderWidth: '3px', borderStyle: 'solid',  padding: '10px' }}> 
                   <Grid container justifyContent="center" alignItems="center">
                     {nowPlaying.albumArt && (
                       <Grid item>
@@ -281,21 +284,25 @@ function App() {
                 Your top artists.
               </Typography>
 
-              <Box>
-                <Typography variant="h2" color="secondary">
-                  Top 5 Recently Played Artists
-                </Typography>
-                {topArtists.map((artist, index) => (
-                  <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
-                    {artist.image && (
-                      <img src={artist.image} alt="Artist" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
-                    )}
-                    <Typography variant="h3" color="primary">
-                      {index + 1}. {artist.name}
-                    </Typography>
+              <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', borderRadius: '8px', borderColor: '#419873', borderWidth: '3px', borderStyle: 'solid',  padding: '10px' }}> 
+                <Box>
+                  <Typography variant="h2" color="secondary">
+                    Top 5 Recently Played Artists
+                  </Typography>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    {topArtists.map((artist, index) => (
+                      <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                        {artist.image && (
+                          <img src={artist.image} alt="Artist" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
+                        )}
+                        <Typography variant="h3" color="primary">
+                          {index + 1}. {artist.name}
+                        </Typography>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </Box>
+                </Box>
+              </div>
 
               <div style={{ marginBottom: '100vh' }}></div> {}
               
