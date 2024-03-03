@@ -189,9 +189,10 @@ function App() {
           topTracks.map(async (track) => {
             try {
               const trackData = await spotifyApi.getTrack(track.id);
+              const image = trackData.album.images.length > 0 ? trackData.album.images[0].url : null;
               return {
                 ...track,
-                image: trackData.album.images.length > 0 ? trackData.album.images[0].url : null,
+                image: image,
               };
             } catch (error) {
               console.error("Error fetching track data:", error);
@@ -342,7 +343,7 @@ function App() {
                 Your top artists.
               </Typography>
 
-              <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', width: '60vw', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}>
+              <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', width: '60vw', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px'}}>
                 <Box>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                    {topArtists.map((artist, index) => (
@@ -358,14 +359,20 @@ function App() {
                   </div>
                 </Box>
               </div>
+
+              <div style={{ marginBottom: '20vh' }}></div> {}
               
+              <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation" >
+                Your top tracks.
+              </Typography>
+
               <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', width: '60vw', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}>
                 <Box>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                     {topTracks.map((track, index) => (
                       <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
-                        {track.album && track.album.image && (
-                          <img src={track.album.image.url} alt="Track Album" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
+                        {track.image && (
+                          <img src={track.image} alt="Track Album" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
                         )}
                         <Typography variant="h3" color="primary">
                           {index + 1}. {track.name}
@@ -376,6 +383,7 @@ function App() {
                 </Box>
               </div>
 
+
               <div style={{ marginBottom: '100vh' }}></div> {}
               
               <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation" >
@@ -383,7 +391,7 @@ function App() {
               </Typography>
               <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
 
-              <div style={{ marginBottom: '100vh' }}></div> {}
+              <div style={{ marginBottom: '80vh' }}></div> {}
             </>
           )}
         </Box>
