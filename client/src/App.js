@@ -152,32 +152,54 @@ function App() {
 
   const getTopRecentlyPlayedArtists = (tracks) => {
     const artistsMap = {};
-
+  
     tracks.forEach(track => {
       track.artists.forEach(artist => {
+        const artistId = artist.id;
         const artistName = artist.name;
-        if (artistsMap[artistName]) {
-          artistsMap[artistName]++;
+        if (artistsMap[artistId]) {
+          artistsMap[artistId].count++;
         } else {
-          artistsMap[artistName] = 1;
+          artistsMap[artistId] = { count: 1, name: artistName };
         }
       });
     });
-
-    const artistsArray = Object.keys(artistsMap).map(artist => ({ name: artist, count: artistsMap[artist] }));
-
+  
+    const artistsArray = Object.keys(artistsMap).map(artistId => ({
+      id: artistId,
+      name: artistsMap[artistId].name,
+      count: artistsMap[artistId].count
+    }));
+  
     artistsArray.sort((a, b) => b.count - a.count);
-
+  
     return artistsArray.slice(0, 5);
   };
 
   const getRecentlyPlayedArtists = () => {
     spotifyApi.getMyRecentlyPlayedTracks({ limit: 50 })
-      .then((response) => {
+      .then(async (response) => {
         const tracks = response.items.map(item => item.track);
         const topArtists = getTopRecentlyPlayedArtists(tracks);
-        console.log("Top 5 recently played artists:", topArtists);
-        setTopArtists(topArtists);
+        const artistsWithImages = await Promise.all(
+          topArtists.map(async (artist) => {
+            try {
+              const artistData = await spotifyApi.getArtist(artist.id);
+              return {
+                ...artist,
+                image: artistData.images.length > 0 ? artistData.images[0].url : null
+              };
+            } catch (error) {
+              console.error("Error fetching artist data:", error);
+              return {
+                ...artist,
+                image: null
+              };
+            }
+          })
+        );
+        console.log("Top 5 recently played artists with images:", artistsWithImages);
+        setTopArtists(artistsWithImages);
         handleModalOpen();
       })
       .catch((error) => {
@@ -264,9 +286,14 @@ function App() {
                   Top 5 Recently Played Artists
                 </Typography>
                 {topArtists.map((artist, index) => (
-                  <Typography key={index} sx={{ mt: 2 }} color="primary" variant="h3">
-                    {index + 1}. {artist.name}
-                  </Typography>
+                  <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                    {artist.image && (
+                      <img src={artist.image} alt="Artist" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
+                    )}
+                    <Typography variant="h3" color="primary">
+                      {index + 1}. {artist.name}
+                    </Typography>
+                  </div>
                 ))}
               </Box>
 
