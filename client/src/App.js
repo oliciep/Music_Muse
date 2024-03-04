@@ -51,7 +51,6 @@ const getTokenFromUrl = () => {
 
 // Main logic for application's function
 function App() {  
-  
   const [spotifyToken, setSpotifyToken] = useState("");
   const [nowPlaying, setNowPlaying] = useState({});
   const [user, setUser] = useState({});
@@ -79,6 +78,7 @@ function App() {
     }
   }, []);
 
+  // Function to get data of current playing song from user's spotify
   const getNowPlaying = () => {
     spotifyApi.getMyCurrentPlaybackState().then((response) => {
       console.log(response);
@@ -124,6 +124,7 @@ function App() {
     });
   };
 
+  // Function to create a playlist for the user based on previous songs played
   const createPlaylist = () => {
     if (!user) {
       console.error("User information not available.");
@@ -147,6 +148,7 @@ function App() {
   };
   
 
+  // Function to add tracks to generated playlist
   const addTracksToPlaylist = (playlistId, trackUri) => {
     spotifyApi.addTracksToPlaylist(playlistId, [trackUri])
       .then((response) => {
@@ -157,6 +159,7 @@ function App() {
       });
   };
 
+  // Function to generate array (sorted by frequency) of previous 50 tracks from user
   const getTopRecentlyPlayedTracks = (tracks) => {
     const tracksMap = {};
   
@@ -181,6 +184,7 @@ function App() {
     return tracksArray.slice(0, 5);
   };
   
+  // Function to get track data of last 50 tracks a user has listened to
   const getRecentlyPlayedTracks = () => {
     spotifyApi
       .getMyRecentlyPlayedTracks({ limit: 50 })
@@ -213,6 +217,7 @@ function App() {
       });
   };
 
+  // Function to generate array (sorted by frequency) of artists from the last 50 tracks a user has listened to
   const getTopRecentlyPlayedArtists = (tracks) => {
     const artistsMap = {};
   
@@ -239,6 +244,8 @@ function App() {
     return artistsArray.slice(0, 5);
   };
 
+
+  // Function to get artist data of last 50 tracks a user has listened to
   const getRecentlyPlayedArtists = () => {
     spotifyApi.getMyRecentlyPlayedTracks({ limit: 50 })
       .then(async (response) => {
@@ -269,6 +276,7 @@ function App() {
       });
   };
 
+  // Main HTML code for front-facing application
   return (
     <ThemeProvider theme={lightTheme}>
       <div className="App">
