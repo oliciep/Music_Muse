@@ -330,51 +330,54 @@ function App() {
               <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
               
               <div style={{ marginBottom: '100vh' }}></div> {}
-
-              <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation" >
-                Your top artists.
-              </Typography>
-
-              <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', width: '60vw', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px'}}>
-                <Box>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                   {topArtists.map((artist, index) => (
-                      <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
-                        {artist.image && (
-                          <img src={artist.image} alt="Artist" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
-                        )}
-                        <Typography variant="h3" color="primary">
-                          {index + 1}. {artist.name}
-                        </Typography>
-                      </div>
-                    ))}
-                  </div>
-                </Box>
-              </div>
-
-              <div style={{ marginBottom: '20vh' }}></div> {}
               
-              <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation" >
-                Your top tracks.
+              <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation">
+                    Your stats.
               </Typography>
-
-              <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', width: '60vw', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}>
-                <Box>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                    {topTracks.map((track, index) => (
-                      <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
-                        {track.image && (
-                          <img src={track.image} alt="Track Album" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
-                        )}
-                        <Typography variant="h3" color="primary">
-                          {index + 1}. {track.name}
-                        </Typography>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20vh' }}>
+                <div>
+                  <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, width: '40vw', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}>
+                    <Box>
+                      <Typography variant="h2" color="primary" gutterBottom className="fadeInAnimation">
+                        Your top artists.
+                      </Typography>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        {topArtists.map((artist, index) => (
+                          <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                            {artist.image && (
+                              <img src={artist.image} alt="Artist" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
+                            )}
+                            <Typography variant="h4" color="primary">
+                              {index + 1}. {artist.name}
+                            </Typography>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </Box>
                   </div>
-                </Box>
+                </div>
+                <div>
+                  <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, width: '40vw', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}>
+                    <Box>
+                    <Typography variant="h2" color="primary" gutterBottom className="fadeInAnimation">
+                      Your top tracks.
+                    </Typography>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        {topTracks.map((track, index) => (
+                          <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                            {track.image && (
+                              <img src={track.image} alt="Track Album" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
+                            )}
+                            <Typography variant="h4" color="primary">
+                              {index + 1}. {track.name}
+                            </Typography>
+                          </div>
+                        ))}
+                      </div>
+                    </Box>
+                  </div>
+                </div>
               </div>
-
 
               <div style={{ marginBottom: '100vh' }}></div> {}
               
