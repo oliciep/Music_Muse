@@ -8,9 +8,11 @@ This project is a React based music recommendation application. It contains song
 
 ## Features
 
-- Real time spotify song and tracking capabilities.
+- Real time song and album tracking capabilities.
+- User specific lifetime song and artists statistics.
 - Specialised playlist generation based on user data.
 - REST API functionality using spotify web API.
+- Javascript backend for API integration.
 - React.JS integration for front end interface.
 
 
