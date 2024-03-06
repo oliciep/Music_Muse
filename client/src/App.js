@@ -55,6 +55,7 @@ function App() {
   const [nowPlaying, setNowPlaying] = useState({});
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+  const [recentTracks, setRecentTracks] = useState([]);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [topTracks, setTopTracks] = useState([]);
   const [topArtists, setTopArtists] = useState([]);
@@ -71,6 +72,7 @@ function App() {
       spotifyApi.getMe().then((user) => {
         console.log(user);
         setUser(user);
+        getRecentTracks();
         getRecentlyPlayedTracks();
         getRecentlyPlayedArtists();
       });
@@ -122,6 +124,27 @@ function App() {
       });
       setButtonClicked(true);
     });
+  };
+
+  // Function to display the previous 5 songs the user has listened to
+  const getRecentTracks = () => {
+    // Make a request to the Spotify API to fetch the user's recently played tracks
+    spotifyApi.getMyRecentlyPlayedTracks({ limit: 5 })
+      .then(response => {
+        // Extract the track information from the response
+        const recentTracks = response.items.map(item => ({
+          name: item.track.name,
+          artists: item.track.artists.map(artist => artist.name).join(', '),
+          album: item.track.album.name,
+          image: item.track.album.images.length > 0 ? item.track.album.images[0].url : null
+        }));
+        
+        // Set the recentTracks state to trigger re-rendering
+        setRecentTracks(recentTracks);
+      })
+      .catch(error => {
+        console.error("Error fetching recent tracks:", error);
+      });
   };
 
   // Function to create a playlist for the user based on previous songs played
@@ -337,6 +360,24 @@ function App() {
 
               <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
               
+              <div>
+                <Typography variant="h3" color="primary" gutterBottom className="fadeInAnimation">
+                  Your Recent Tracks
+                </Typography>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                  {recentTracks.map((track, index) => (
+                    <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                      {track.image && (
+                        <img src={track.image} alt="Track Album" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
+                      )}
+                      <Typography variant="h5" color="primary">
+                        {index + 1}. {track.name} - {track.artists} (Album: {track.album})
+                      </Typography>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               <div style={{ marginBottom: '100vh' }}></div> {}
               
               <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation">
