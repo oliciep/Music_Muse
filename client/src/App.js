@@ -359,22 +359,26 @@ function App() {
               <br></br><br></br>
 
               <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
+
+              <br></br><br></br>
               
-              <div>
-                <Typography variant="h3" color="primary" gutterBottom className="fadeInAnimation">
-                  Your Recent Tracks
-                </Typography>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                  {recentTracks.map((track, index) => (
-                    <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
-                      {track.image && (
-                        <img src={track.image} alt="Track Album" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
-                      )}
-                      <Typography variant="h5" color="primary">
-                        {index + 1}. {track.name} - {track.artists} (Album: {track.album})
-                      </Typography>
-                    </div>
-                  ))}
+              <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}>
+                <div style={{ margin: 'auto', width: '50%' }}>
+                  <Typography variant="h2" color="primary" gutterBottom className="fadeInAnimation">
+                    Your Recent Tracks
+                  </Typography>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                    {recentTracks.map((track, index) => (
+                      <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                        {track.image && (
+                          <img src={track.image} alt="Track Album" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
+                        )}
+                        <Typography variant="h5" color="primary">
+                          {index + 1}. {track.name} - {track.artists} (Album: {track.album})
+                        </Typography>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
