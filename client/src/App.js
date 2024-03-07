@@ -337,7 +337,9 @@ function App() {
                 </Typography>
               </div>
 
-              <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}>
+              <br></br><br></br>
+
+              <div className="fadeInAnimation" style={{ width: '58%', margin: 'auto', backgroundColor: lightTheme.palette.tertiary.main, borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}>
                 <div style={{ margin: 'auto', width: '50%' }}>
                   <Typography variant="h2" color="primary" gutterBottom className="fadeInAnimation">
                     Your Recent Tracks
@@ -349,7 +351,7 @@ function App() {
                           <img src={track.image} alt="Track Album" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
                         )}
                         <Typography variant="h5" color="primary">
-                          {index + 1}. <b>{track.name} - {track.artists}</b> <i>(Album: {track.album})</i>
+                          <b>{track.name} - {track.artists}</b> <br></br> <i>(Album: {track.album})</i>
                         </Typography>
                       </div>
                     ))}
@@ -357,29 +359,26 @@ function App() {
                 </div>
               </div>
 
-              {buttonClicked && (
-                <div className="fadeInAnimation" style={{ animationDelay: '2s', backgroundColor: lightTheme.palette.tertiary.main, display: 'inline-block', borderRadius: '8px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid',  padding: '10px 20px 10px 0px' }}> 
-                  <Grid container justifyContent="center" alignItems="center">
-                    {nowPlaying.albumArt && (
-                      <Grid item>
+              <div style={{ width: '60%', margin: 'auto' }}>
+                {buttonClicked && (
+                  <div className="fadeInAnimation" style={{ animationDelay: '2s', backgroundColor: lightTheme.palette.tertiary.main, display: 'flex', alignItems: 'center', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      {nowPlaying.albumArt && (
                         <img src={nowPlaying.albumArt} style={{ height: 100, opacity: 0, animation: 'fadeIn 1s ease-out forwards', marginRight: '10px' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
-                      </Grid>
-                    )}
-                    <Grid item>
-                      <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ marginLeft: '10px' }}> 
-                        Song: <i>{nowPlaying.name}</i> <i>{nowPlaying.artist}</i>
-                      </Typography> 
-                      <Typography variant="h5" color="#317256" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ marginLeft: '10px' }}> 
-                        Album: <i>{nowPlaying.album}</i>
-                      </Typography> 
-                    </Grid>
-                  </Grid>
-                </div>
-              )}
-
-              <br></br><br></br>
-
-              <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
+                      )}
+                      <div>
+                        <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ marginLeft: '10px' }}> 
+                          Song: <i>{nowPlaying.name}</i> <i>{nowPlaying.artist}</i>
+                        </Typography> 
+                        <Typography variant="h5" color="#317256" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ marginLeft: '10px' }}> 
+                          Album: <i>{nowPlaying.album}</i>
+                        </Typography>
+                      </div>
+                    </div>
+                    <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
+                  </div>
+                )}
+              </div>
 
               <div style={{ marginBottom: '100vh' }}></div> {}
               
