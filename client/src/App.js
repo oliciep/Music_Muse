@@ -130,7 +130,7 @@ function App() {
   // Function to display the previous 5 songs the user has listened to
   const getRecentTracks = () => {
     // Make a request to the Spotify API to fetch the user's recently played tracks
-    spotifyApi.getMyRecentlyPlayedTracks({ limit: 5 })
+    spotifyApi.getMyRecentlyPlayedTracks({ limit: 9 })
       .then(response => {
         // Extract the track information from the response
         const recentTracks = response.items.map(item => ({
@@ -365,25 +365,6 @@ function App() {
                       </div>
                     ))}
                   </div>
-                </div>
-              </div>
-
-              <div style={{ width: '60%', margin: 'auto' }}>
-                <div className="fadeInAnimation" style={{ animationDelay: '2s', backgroundColor: lightTheme.palette.tertiary.main, display: 'flex', alignItems: 'center', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px', justifyContent: 'space-between' }}>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    {nowPlaying.albumArt && (
-                      <img src={nowPlaying.albumArt} style={{ height: 100, opacity: 0, animation: 'fadeIn 1s ease-out forwards', marginRight: '10px' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
-                    )}
-                    <div>
-                      <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold' }} className="fadeInAnimation" style={{ marginLeft: '10px' }}>
-                        Song: <i>{nowPlaying.name}</i> <i>{nowPlaying.artist}</i>
-                      </Typography>
-                      <Typography variant="h5" color="#317256" sx={{ fontWeight: 'bold' }} className="fadeInAnimation" style={{ marginLeft: '10px' }}>
-                        Album: <i>{nowPlaying.album}</i>
-                      </Typography>
-                    </div>
-                  </div>
-                  <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => getNowPlaying()}>Check Now Playing</Button>
                 </div>
               </div>
 
