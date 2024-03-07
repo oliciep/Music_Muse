@@ -72,6 +72,7 @@ function App() {
       spotifyApi.getMe().then((user) => {
         console.log(user);
         setUser(user);
+        getNowPlaying();
         getRecentTracks();
         getRecentlyPlayedTracks();
         getRecentlyPlayedArtists();
@@ -366,10 +367,10 @@ function App() {
                       <img src={nowPlaying.albumArt} style={{ height: 100, opacity: 0, animation: 'fadeIn 1s ease-out forwards', marginRight: '10px' }} alt="Album Art" onLoad={(e) => { e.target.style.opacity = 1 }} />
                     )}
                     <div>
-                      <Typography variant="h5" color="primary" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ marginLeft: '10px' }}> 
+                      <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold' }} className="fadeInAnimation" style={{ marginLeft: '10px' }}>
                         Song: <i>{nowPlaying.name}</i> <i>{nowPlaying.artist}</i>
-                      </Typography> 
-                      <Typography variant="h5" color="#317256" sx={{ fontWeight:'bold' } } className="fadeInAnimation" style={{ marginLeft: '10px' }}> 
+                      </Typography>
+                      <Typography variant="h5" color="#317256" sx={{ fontWeight: 'bold' }} className="fadeInAnimation" style={{ marginLeft: '10px' }}>
                         Album: <i>{nowPlaying.album}</i>
                       </Typography>
                     </div>
