@@ -346,7 +346,7 @@ function App() {
                     Your Recent Tracks
                   </Typography>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                    <div style={{ backgroundColor: lightTheme.palette.secondary.main, borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '5px', display: 'flex', alignItems: 'center', marginTop: '10px' }}>
                       {nowPlaying.albumArt && (
                         <img src={nowPlaying.albumArt} alt="Track Album" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
                       )}
