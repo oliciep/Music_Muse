@@ -346,6 +346,14 @@ function App() {
                     Your Recent Tracks
                   </Typography>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                      {nowPlaying.albumArt && (
+                        <img src={nowPlaying.albumArt} alt="Track Album" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
+                      )}
+                      <Typography variant="h5" color="primary">
+                        <b>{nowPlaying.name}</b> - <i>{nowPlaying.artist}</i>     <b><i>Now Playing</i></b>
+                      </Typography>
+                    </div>
                     {recentTracks.map((track, index) => (
                       <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
                         {track.image && (
