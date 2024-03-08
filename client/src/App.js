@@ -61,6 +61,7 @@ function App() {
   const [buttonClicked, setButtonClicked] = useState(false);
   const [topTracks, setTopTracks] = useState([]);
   const [topArtists, setTopArtists] = useState([]);
+  const [playlistLink, setPlaylistLink] = useState("");
 
   useEffect(() => {
     console.log("Token derived from URL: ", getTokenFromUrl());
@@ -102,7 +103,7 @@ function App() {
         setNowPlaying(trackInfo);
       } else {
         setNowPlaying({
-          name: "None",
+          name: "Nothing",
           albumArt: null,
           artist: "",
           album: "None",
@@ -167,6 +168,10 @@ function App() {
         } else {
           console.error("No currently playing track found.");
         }
+        
+        // Adding the playlist link to the console log
+        setPlaylistLink(playlist.external_urls.spotify);
+        console.log("Playlist link:", playlist.external_urls.spotify);
       })
       .catch((error) => {
         console.error("Error creating playlist:", error);
@@ -347,10 +352,10 @@ function App() {
                   style={{ position: 'absolute', top: '10px', right: '10px' }}
                   color="primary"
                   aria-label="refresh"
-                  sx={{ fontSize: '32px', width: '64px', height: '64px' }} // Adjust the size here
+                  sx={{ fontSize: '32px', width: '64px', height: '64px' }} 
                   onClick={() => { getNowPlaying(); getRecentTracks(); }}
                 >
-                  <RefreshIcon sx={{ fontSize: '32px' }} /> {/* Adjust the icon size here */}
+                  <RefreshIcon sx={{ fontSize: '32px' }} />
                 </IconButton>
                 <div style={{ margin: 'auto', width: '50%' }}>
                   <Typography variant="h2" color="primary" gutterBottom className="fadeInAnimation">
@@ -365,7 +370,7 @@ function App() {
                         <b>{nowPlaying.name}</b> - <i>{nowPlaying.artist}</i>  &nbsp;
                       </Typography>
                       <Typography  variant="h5" color="primary" style={{ backgroundColor: lightTheme.palette.secondary.main, borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '5px' }}>
-                        <b><i> Now Playing</i></b>
+                        <b><i>Now Playing</i></b>
                       </Typography>
                     </div>
                     {recentTracks.map((track, index) => (
@@ -446,7 +451,15 @@ function App() {
                 Get a custom playlist made.
               </Typography>
               <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
-
+              
+              {playlistLink && (
+                <div>
+                  <Typography variant="h4" color="primary" gutterBottom className="fadeInAnimation">
+                    Playlist link: <a href={playlistLink} target="_blank" rel="noopener noreferrer">{playlistLink}</a>
+                  </Typography>
+                </div>
+              )}
+              
               <div style={{ marginBottom: '80vh' }}></div> {}
             </>
           )}
