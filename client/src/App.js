@@ -90,7 +90,7 @@ function App() {
         const trackInfo = {
           name: track.name,
           albumArt: track.album.images.length > 0 ? track.album.images[0].url : null,
-          artist: "by " +  track.artists.map(artist => artist.name).join(", "),
+          artist: track.artists.map(artist => artist.name).join(", "),
           album: track.album.name,
           duration_ms: track.duration_ms,
           popularity: track.popularity,
@@ -340,12 +340,12 @@ function App() {
 
               <br></br><br></br>
 
-              <div className="fadeInAnimation" style={{ width: '58%', margin: 'auto', backgroundColor: lightTheme.palette.tertiary.main, borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}>
+              <div className="fadeInAnimation" style={{ width: '58%', margin: 'auto', backgroundColor: lightTheme.palette.tertiary.main, borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px', position: 'relative' }}>
                 <div style={{ margin: 'auto', width: '50%' }}>
                   <Typography variant="h2" color="primary" gutterBottom className="fadeInAnimation">
                     Your Recent Tracks
                   </Typography>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginRight: '40px' }}>
                     <div style={{  display: 'flex', alignItems: 'center', marginTop: '10px' }}>
                       {nowPlaying.albumArt && (
                         <img src={nowPlaying.albumArt} alt="Track Album" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
@@ -356,6 +356,9 @@ function App() {
                       <Typography  variant="h5" color="primary" style={{ backgroundColor: lightTheme.palette.secondary.main, borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '5px' }}>
                         <b><i> Now Playing</i></b>
                       </Typography>
+                      <div style={{ position: 'absolute', top: '0', right: '0' }}>
+                        <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => { getNowPlaying(); getRecentTracks(); }}>Refresh</Button>
+                      </div>
                     </div>
                     {recentTracks.map((track, index) => (
                       <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
@@ -371,14 +374,15 @@ function App() {
                 </div>
               </div>
 
+
               <div style={{ marginBottom: '100vh' }}></div> {}
               
               <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation">
-                    Your stats.
+                Your stats.
               </Typography>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20vh' }}>
-                <div>
-                  <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, width: '40vw', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20vh' }}>
+                <div style={{ marginRight: '2vw' }}>
+                  <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, width: '40vw', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}> {/* adjusted width */}
                     <Box>
                       <Typography variant="h2" color="primary" gutterBottom className="fadeInAnimation">
                         Your top artists.
@@ -393,7 +397,7 @@ function App() {
                               <img src={artist.image} alt="Artist" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
                             )}
                             <Typography variant="h4" color="primary">
-                              <b>{artist.name}</b>
+                              &nbsp; <b>{artist.name}</b>
                             </Typography>
                           </div>
                         ))}
@@ -401,12 +405,12 @@ function App() {
                     </Box>
                   </div>
                 </div>
-                <div>
-                  <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, width: '40vw', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}>
+                <div style={{ marginLeft: '2vw' }}>
+                  <div className="fadeInAnimation" style={{ backgroundColor: lightTheme.palette.tertiary.main, width: '40vw', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px' }}> {/* adjusted width */}
                     <Box>
-                    <Typography variant="h2" color="primary" gutterBottom className="fadeInAnimation">
-                      Your top tracks.
-                    </Typography>
+                      <Typography variant="h2" color="primary" gutterBottom className="fadeInAnimation">
+                        Your top tracks.
+                      </Typography>
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         {topTracks.map((track, index) => (
                           <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
@@ -417,7 +421,7 @@ function App() {
                               <img src={track.image} alt="Track Album" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
                             )}
                             <Typography variant="h4" color="primary">
-                              <b>{track.name}</b>
+                              &nbsp; <b>{track.name}</b>
                             </Typography>
                           </div>
                         ))}
@@ -426,6 +430,7 @@ function App() {
                   </div>
                 </div>
               </div>
+
 
               <div style={{ marginBottom: '100vh' }}></div> {}
               
