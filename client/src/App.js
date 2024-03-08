@@ -8,6 +8,8 @@ import { green } from '@mui/material/colors';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import Grid from '@mui/material/Grid';
 
 
@@ -341,6 +343,15 @@ function App() {
               <br></br><br></br>
 
               <div className="fadeInAnimation" style={{ width: '58%', margin: 'auto', backgroundColor: lightTheme.palette.tertiary.main, borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px', position: 'relative' }}>
+               <IconButton
+                  style={{ position: 'absolute', top: '10px', right: '10px' }}
+                  color="primary"
+                  aria-label="refresh"
+                  sx={{ fontSize: '32px', width: '64px', height: '64px' }} // Adjust the size here
+                  onClick={() => { getNowPlaying(); getRecentTracks(); }}
+                >
+                  <RefreshIcon sx={{ fontSize: '32px' }} /> {/* Adjust the icon size here */}
+                </IconButton>
                 <div style={{ margin: 'auto', width: '50%' }}>
                   <Typography variant="h2" color="primary" gutterBottom className="fadeInAnimation">
                     Your Recent Tracks
@@ -348,7 +359,7 @@ function App() {
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginRight: '40px' }}>
                     <div style={{  display: 'flex', alignItems: 'center', marginTop: '10px' }}>
                       {nowPlaying.albumArt && (
-                        <img src={nowPlaying.albumArt} alt="Track Album" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
+                        <img src={nowPlaying.albumArt} alt="Track Album" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
                       )}
                       <Typography variant="h5" color="primary">
                         <b>{nowPlaying.name}</b> - <i>{nowPlaying.artist}</i>  &nbsp;
@@ -356,14 +367,11 @@ function App() {
                       <Typography  variant="h5" color="primary" style={{ backgroundColor: lightTheme.palette.secondary.main, borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '5px' }}>
                         <b><i> Now Playing</i></b>
                       </Typography>
-                      <div style={{ position: 'absolute', top: '0', right: '0' }}>
-                        <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => { getNowPlaying(); getRecentTracks(); }}>Refresh</Button>
-                      </div>
                     </div>
                     {recentTracks.map((track, index) => (
                       <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
                         {track.image && (
-                          <img src={track.image} alt="Track Album" style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
+                          <img src={track.image} alt="Track Album" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
                         )}
                         <Typography variant="h5" color="primary">
                           <b>{track.name}</b> - <i>{track.artists}</i>
