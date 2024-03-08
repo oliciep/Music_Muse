@@ -386,11 +386,14 @@ function App() {
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         {topArtists.map((artist, index) => (
                           <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                            <Typography variant="h4" color="primary">
+                              {index + 1}. &nbsp;
+                            </Typography>
                             {artist.image && (
                               <img src={artist.image} alt="Artist" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
                             )}
                             <Typography variant="h4" color="primary">
-                              {index + 1}. {artist.name}
+                              <b>{artist.name}</b>
                             </Typography>
                           </div>
                         ))}
@@ -407,11 +410,14 @@ function App() {
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         {topTracks.map((track, index) => (
                           <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                            <Typography variant="h4" color="primary">
+                              {index + 1}. &nbsp;
+                            </Typography>
                             {track.image && (
                               <img src={track.image} alt="Track Album" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
                             )}
                             <Typography variant="h4" color="primary">
-                              {index + 1}. {track.name}
+                              <b>{track.name}</b>
                             </Typography>
                           </div>
                         ))}
