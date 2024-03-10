@@ -165,11 +165,12 @@ function App() {
         console.log("Playlist created:", playlist.id);
         if (nowPlaying.id) {
           addTracksToPlaylist(playlist.id, nowPlaying.uri);
+          // Get the image of the first song in the playlist
         } else {
           console.error("No currently playing track found.");
         }
-        
-        // Adding the playlist link to the console log
+  
+        // Adding the playlist link to the state
         setPlaylistLink(playlist.external_urls.spotify);
         console.log("Playlist link:", playlist.external_urls.spotify);
       })
@@ -177,7 +178,6 @@ function App() {
         console.error("Error creating playlist:", error);
       });
   };
-  
 
   // Function to add tracks to generated playlist
   const addTracksToPlaylist = (playlistId, trackUri) => {
@@ -448,15 +448,26 @@ function App() {
               <div style={{ marginBottom: '100vh' }}></div> {}
               
               
-              <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation" >
+              <Typography variant="h1" color="primary" gutterBottom className="fadeInAnimation">
                 Get a custom playlist made.
               </Typography>
-              <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={createPlaylist}>Create Playlist</Button>
-              
+              <Button
+                variant="contained"
+                color="secondary"
+                className="fadeInAnimation"
+                style={{ animationDelay: '1s' }}
+                onClick={createPlaylist}
+              >
+                Create Playlist
+              </Button>
+
               {playlistLink && (
-                <div>
-                  <Typography variant="h4" color="primary" gutterBottom className="fadeInAnimation">
-                    Playlist link: <a href={playlistLink} target="_blank" rel="noopener noreferrer">{playlistLink}</a>
+                <div className="fadeInAnimation">
+                  <Typography variant="h4" color="primary" gutterBottom>
+                    Playlist link:{" "}
+                    <a href={playlistLink} target="_blank" rel="noopener noreferrer">
+                      {playlistLink}
+                    </a>
                   </Typography>
                 </div>
               )}
