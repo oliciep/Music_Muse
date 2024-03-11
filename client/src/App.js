@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import EqualizerIcon from '@mui/icons-material/Equalizer';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import Grid from '@mui/material/Grid';
 
 
@@ -370,18 +370,18 @@ function App() {
                         )}
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 'calc(100% - 60px)' }}>
                           <div style={{ flex: '1' }}>
-                            <Typography variant="h5" color="primary">
+                            <Typography variant="h5" color="primary" style = {{ textAlign: 'left' }}>
                               <b>{nowPlaying.name}</b>
                             </Typography>
                           </div>
-                          <div style={{ flex: '1', textAlign: 'center' }}>
+                          <div style={{ flex: '1', textAlign: 'left' }}>
                             <Typography variant="h5" color="primary">
                               <i>{nowPlaying.artist}</i>
                             </Typography>
                           </div>
                           {nowPlaying.albumArt && (
                             <div style={{ position: 'absolute', right: '5%', top: '15%', transform: 'translateY(-50%)', marginRight: '10px' }}>
-                              <EqualizerIcon style={{ color: 'secondary' }} />
+                              <VolumeUpIcon style={{ color: 'darkgreen' }} />
                             </div>
                           )}
                         </div>
@@ -395,11 +395,11 @@ function App() {
                           )}
                           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 'calc(100% - 60px)' }}>
                             <div style={{ flex: '1' }}>
-                              <Typography variant="h5" color="primary">
+                              <Typography variant="h5" color="primary" style = {{ textAlign: 'left' }} >
                                 <b>{track.name}</b>
                               </Typography>
                             </div>
-                            <div style={{ flex: '1', textAlign: 'center' }}>
+                            <div style={{ flex: '1', textAlign: 'left' }}>
                               <Typography variant="h5" color="primary">
                                <i>{track.artists}</i>
                               </Typography>
