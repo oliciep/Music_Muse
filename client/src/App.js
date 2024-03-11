@@ -103,7 +103,7 @@ function App() {
         setNowPlaying(trackInfo);
       } else {
         setNowPlaying({
-          name: "Nothing",
+          name: "Nothing ",
           albumArt: null,
           artist: "",
           album: "None",
@@ -357,29 +357,37 @@ function App() {
                 >
                   <RefreshIcon sx={{ fontSize: '32px' }} />
                 </IconButton>
-                <div style={{ margin: 'auto', width: '50%' }}>
-                  <Typography variant="h2" color="primary" gutterBottom className="fadeInAnimation">
-                    Your Recent Tracks
-                  </Typography>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginRight: '40px' }}>
-                    <div style={{  display: 'flex', alignItems: 'center', marginTop: '10px' }}>
-                      {nowPlaying.albumArt && (
-                        <img src={nowPlaying.albumArt} alt="Track Album" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
-                      )}
-                      <Typography variant="h5" color="primary">
-                        <b>{nowPlaying.name}</b> - <i>{nowPlaying.artist}</i>  &nbsp;
-                      </Typography>
-                      <Typography  variant="h5" color="primary" style={{ backgroundColor: lightTheme.palette.secondary.main, borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '5px' }}>
-                        <b><i>Now Playing</i></b>
-                      </Typography>
+                <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+                  <div style={{ marginBottom: '20px' }}>
+                    <Typography variant="h2" color="primary" gutterBottom className="fadeInAnimation">
+                      Your Recent Tracks
+                    </Typography>
+                    <div>
+                     <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                        {nowPlaying.albumArt && (
+                          <img src={nowPlaying.albumArt} alt="Track Album" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
+                        )}
+                        <Typography variant="h5" color="primary">
+                          <b>{nowPlaying.name}</b>
+                        </Typography>
+                        <Typography variant="h5" color="primary" style={{ marginRight: '10px' }}>
+                          - <i>{nowPlaying.artist}</i>
+                        </Typography>
+                        <Typography  variant="h5" color="primary" style={{ backgroundColor: lightTheme.palette.secondary.main, borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '5px', marginLeft: 'auto' }}>
+                          <b><i>Now Playing</i></b>
+                        </Typography>
+                      </div>
                     </div>
                     {recentTracks.map((track, index) => (
-                      <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                      <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', marginLeft: '20px' }}>
                         {track.image && (
                           <img src={track.image} alt="Track Album" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
                         )}
                         <Typography variant="h5" color="primary">
-                          <b>{track.name}</b> - <i>{track.artists}</i>
+                          <b>{track.name}</b>
+                        </Typography>
+                        <Typography variant="h5" color="primary" style={{ marginLeft: '10px', marginRight: 'auto' }}>
+                          - <i>{track.artists}</i>
                         </Typography>
                       </div>
                     ))}
