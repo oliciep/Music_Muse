@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Grid from '@mui/material/Grid';
 
 
@@ -289,13 +290,15 @@ function App() {
               const artistData = await spotifyApi.getArtist(artist.id);
               return {
                 ...artist,
-                image: artistData.images.length > 0 ? artistData.images[0].url : null
+                image: artistData.images.length > 0 ? artistData.images[0].url : null,
+                spotifyUrl: artistData.external_urls.spotify // Get Spotify URL for the artist
               };
             } catch (error) {
               console.error("Error fetching artist data:", error);
               return {
                 ...artist,
-                image: null
+                image: null,
+                spotifyUrl: null
               };
             }
           })
@@ -307,7 +310,8 @@ function App() {
         console.error("Error fetching recently played tracks:", error);
       });
   };
-
+  
+  
   // Main HTML code for front-facing application
   return (
     <ThemeProvider theme={lightTheme}>
@@ -440,6 +444,18 @@ function App() {
                             )}
                             <Typography variant="h4" color="primary">
                               &nbsp; <b>{artist.name}</b>
+                              <IconButton
+                                color="primary"
+                                aria-label="link"
+                                sx={{ fontSize: '32px', width: '64px', height: '64px' }} 
+                                onClick={() => {
+                                  if (artist.spotifyUrl) {
+                                    window.open(artist.spotifyUrl, '_blank');
+                                  }
+                                 }}
+                              >
+                                <OpenInNewIcon sx={{ fontSize: '32px' }} />
+                              </IconButton>
                             </Typography>
                           </div>
                         ))}
