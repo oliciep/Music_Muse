@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import PlayArrowIcon from '@mui/icons-material/Refresh';
 import Grid from '@mui/material/Grid';
 
 
@@ -348,7 +349,7 @@ function App() {
               <br></br><br></br>
 
               <div className="fadeInAnimation" style={{ width: '58%', margin: 'auto', backgroundColor: lightTheme.palette.tertiary.main, borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px', position: 'relative' }}>
-               <IconButton
+                <IconButton
                   style={{ position: 'absolute', top: '10px', right: '10px' }}
                   color="primary"
                   aria-label="refresh"
@@ -362,38 +363,56 @@ function App() {
                     <Typography variant="h2" color="primary" gutterBottom className="fadeInAnimation">
                       Your Recent Tracks
                     </Typography>
-                    <div>
-                     <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                    <div style={{ width: '100%' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', width: '100%' }}>
                         {nowPlaying.albumArt && (
                           <img src={nowPlaying.albumArt} alt="Track Album" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
                         )}
-                        <Typography variant="h5" color="primary">
-                          <b>{nowPlaying.name}</b>
-                        </Typography>
-                        <Typography variant="h5" color="primary" style={{ marginRight: '10px' }}>
-                          - <i>{nowPlaying.artist}</i>
-                        </Typography>
-                        <Typography  variant="h5" color="primary" style={{ backgroundColor: lightTheme.palette.secondary.main, borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '5px', marginLeft: 'auto' }}>
-                          <b><i>Now Playing</i></b>
-                        </Typography>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 'calc(100% - 60px)' }}>
+                          <div style={{ flex: '1' }}> {/* Shift track name to the left */}
+                            <Typography variant="h5" color="primary">
+                              <b>{nowPlaying.name}</b>
+                            </Typography>
+                          </div>
+                          <div style={{ flex: '1', textAlign: 'center' }}>
+                            <Typography variant="h5" color="primary"> {/* Centering style */}
+                              <i>{nowPlaying.artist}</i>
+                            </Typography>
+                          </div>
+                          <div style={{ position: 'absolute', right: '5%', top: '15%', transform: 'translateY(-50%)', marginRight: '10px' }}> {/* Position the icon absolutely */}
+                            <PlayArrowIcon style={{ color: 'green' }} /> {/* Play icon */}
+                          </div>
+                        </div>
                       </div>
                     </div>
                     {recentTracks.map((track, index) => (
-                      <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', marginLeft: '20px' }}>
-                        {track.image && (
-                          <img src={track.image} alt="Track Album" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
-                        )}
-                        <Typography variant="h5" color="primary">
-                          <b>{track.name}</b>
-                        </Typography>
-                        <Typography variant="h5" color="primary" style={{ marginLeft: '10px', marginRight: 'auto' }}>
-                          - <i>{track.artists}</i>
-                        </Typography>
+                      <div key={index} style={{ width: '100%' }}> {/* Container for each row */}
+                        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', width: '100%' }}>
+                          {track.image && (
+                            <img src={track.image} alt="Track Album" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
+                          )}
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 'calc(100% - 60px)' }}>
+                            <div style={{ flex: '1' }}>
+                              <Typography variant="h5" color="primary">
+                                <b>{track.name}</b>
+                              </Typography>
+                            </div>
+                            <div style={{ flex: '1', textAlign: 'center' }}>
+                              <Typography variant="h5" color="primary">
+                               <i>{track.artists}</i>
+                              </Typography>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
+
+
+
+
 
 
               <div style={{ marginBottom: '100vh' }}></div> {}
