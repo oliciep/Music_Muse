@@ -88,63 +88,73 @@ function App() {
 
   // Function to get data of current playing song from user's spotify
   const getNowPlaying = () => {
-    spotifyApi.getMyCurrentPlaybackState().then((response) => {
-      console.log(response);
-      if(response.item) {
-        const track = response.item;
-        const trackInfo = {
-          name: track.name,
-          albumArt: track.album.images.length > 0 ? track.album.images[0].url : null,
-          artist: track.artists.map(artist => artist.name).join(", "),
-          album: track.album.name,
-          duration_ms: track.duration_ms,
-          popularity: track.popularity,
-          id: track.id,
-          uri: track.uri
-        };
-        setNowPlaying(trackInfo);
-      } else {
+    spotifyApi.getMyCurrentPlaybackState()
+      .then((response) => {
+        console.log(response);
+        if(response.item) {
+          const track = response.item;
+          const trackInfo = {
+            name: track.name,
+            albumArt: track.album.images.length > 0 ? track.album.images[0].url : null,
+            artist: track.artists.map(artist => artist.name).join(", "),
+            album: track.album.name,
+            duration_ms: track.duration_ms,
+            popularity: track.popularity,
+            id: track.id,
+            uri: track.uri,
+            url: `https://open.spotify.com/track/${track.id}`
+          };
+          setNowPlaying(trackInfo);
+        } else {
+          setNowPlaying({
+            name: "Nothing",
+            albumArt: null,
+            artist: "",
+            album: "None",
+            duration_ms: 0,
+            popularity: 0,
+            id: "",
+            uri: "",
+            url: "" // No URL for the track when nothing is playing
+          });
+        }
+        setButtonClicked(true);
+      })
+      .catch(error => {
+        console.error("Error:", error);
         setNowPlaying({
-          name: "Nothing ",
+          name: "Error fetching song name",
           albumArt: null,
           artist: "",
-          album: "None",
+          album: "Error fetching album",
           duration_ms: 0,
           popularity: 0,
           id: "",
-          uri: ""
+          uri: "",
+          url: "" // No URL when there's an error
         });
-      }
-      setButtonClicked(true);
-    }).catch(error => {
-      console.error("Error:", error);
-      setNowPlaying({
-        name: "Error fetching song name",
-        albumArt: null,
-        artist: "",
-        album: "Error fetching album",
-        duration_ms: 0,
-        popularity: 0,
-        id: "",
-        uri: ""
+        setButtonClicked(true);
       });
-      setButtonClicked(true);
-    });
   };
 
   // Function to display the previous 5 songs the user has listened to
   const getRecentTracks = () => {
     // Make a request to the Spotify API to fetch the user's recently played tracks
     spotifyApi.getMyRecentlyPlayedTracks({ limit: 9 })
-      .then(response => {
+      .then(async response => {
         // Extract the track information from the response
-        const recentTracks = response.items.map(item => ({
-          name: item.track.name,
-          artists: item.track.artists.map(artist => artist.name).join(', '),
-          album: item.track.album.name,
-          image: item.track.album.images.length > 0 ? item.track.album.images[0].url : null
+        const recentTracks = await Promise.all(response.items.map(async item => {
+          // Fetch additional track details including the track URL
+          const trackData = await spotifyApi.getTrack(item.track.id);
+          return {
+            name: trackData.name,
+            artists: trackData.artists.map(artist => artist.name).join(', '),
+            album: trackData.album.name,
+            image: trackData.album.images.length > 0 ? trackData.album.images[0].url : null,
+            url: trackData.external_urls.spotify // URL for the track on Spotify
+          };
         }));
-        
+  
         // Set the recentTracks state to trigger re-rendering
         setRecentTracks(recentTracks);
       })
@@ -152,6 +162,7 @@ function App() {
         console.error("Error fetching recent tracks:", error);
       });
   };
+  
 
   // Function to create a playlist for the user based on previous songs played
   const createPlaylist = () => {
@@ -377,7 +388,7 @@ function App() {
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 'calc(100% - 60px)' }}>
                           <div style={{ flex: '1' }}>
                             <Typography variant="h5" color="primary" style = {{ textAlign: 'left' }}>
-                              <b>{nowPlaying.name}</b>
+                              <a href={nowPlaying.url} target="_blank" rel="noopener noreferrer"> <b>{nowPlaying.name}</b> </a>
                             </Typography>
                           </div>
                           <div style={{ flex: '1', textAlign: 'left' }}>
@@ -402,7 +413,7 @@ function App() {
                           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 'calc(100% - 60px)' }}>
                             <div style={{ flex: '1' }}>
                               <Typography variant="h5" color="primary" style = {{ textAlign: 'left' }} >
-                                <b>{track.name}</b>
+                               <a href={track.url} target="_blank" rel="noopener noreferrer"> <b>{track.name}</b> </a>
                               </Typography>
                             </div>
                             <div style={{ flex: '1', textAlign: 'left' }}>
@@ -439,7 +450,7 @@ function App() {
                         {topArtists.map((artist, index) => (
                           <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
                             <Typography variant="h4" color="primary">
-                              {index + 1}. &nbsp;
+                              <b>{index + 1}.</b> &nbsp;
                             </Typography>
                             {artist.image && (
                               <img src={artist.image} alt="Artist" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
@@ -475,7 +486,7 @@ function App() {
                         {topTracks.map((track, index) => (
                           <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
                             <Typography variant="h4" color="primary">
-                              {index + 1}. &nbsp;
+                              <b>{index + 1}.</b> &nbsp;
                             </Typography>
                             {track.image && (
                               <img src={track.image} alt="Track Album" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
