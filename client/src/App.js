@@ -89,14 +89,17 @@ function App() {
   // Function to get data of current playing song from user's spotify
   const getNowPlaying = () => {
     spotifyApi.getMyCurrentPlaybackState()
-      .then((response) => {
+      .then(async (response) => {
         console.log(response);
         if(response.item) {
           const track = response.item;
+          const mainArtist = track.artists[0]; // Get the main artist
+          const artistData = await spotifyApi.getArtist(mainArtist.id); // Fetch artist details including the artist URL
           const trackInfo = {
             name: track.name,
             albumArt: track.album.images.length > 0 ? track.album.images[0].url : null,
-            artist: track.artists.map(artist => artist.name).join(", "),
+            artist: mainArtist.name, // Only the main artist
+            artistUrl: artistData.external_urls.spotify, // URL for the main artist on Spotify
             album: track.album.name,
             duration_ms: track.duration_ms,
             popularity: track.popularity,
@@ -137,6 +140,7 @@ function App() {
       });
   };
 
+
   // Function to display the previous 5 songs the user has listened to
   const getRecentTracks = () => {
     // Make a request to the Spotify API to fetch the user's recently played tracks
@@ -144,11 +148,14 @@ function App() {
       .then(async response => {
         // Extract the track information from the response
         const recentTracks = await Promise.all(response.items.map(async item => {
-          // Fetch additional track details including the track URL
+          // Fetch additional track details including the track URL and the main artist's URL
           const trackData = await spotifyApi.getTrack(item.track.id);
+          const mainArtist = trackData.artists[0]; // Get the main artist
+          const artistData = await spotifyApi.getArtist(mainArtist.id); // Fetch artist details including the artist URL
           return {
             name: trackData.name,
-            artists: trackData.artists.map(artist => artist.name).join(', '),
+            artist: mainArtist.name, // Only the main artist
+            artistUrl: artistData.external_urls.spotify, // URL for the main artist on Spotify
             album: trackData.album.name,
             image: trackData.album.images.length > 0 ? trackData.album.images[0].url : null,
             url: trackData.external_urls.spotify // URL for the track on Spotify
@@ -162,6 +169,7 @@ function App() {
         console.error("Error fetching recent tracks:", error);
       });
   };
+
   
 
   // Function to create a playlist for the user based on previous songs played
@@ -388,12 +396,12 @@ function App() {
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 'calc(100% - 60px)' }}>
                           <div style={{ flex: '1' }}>
                             <Typography variant="h5" color="primary" style = {{ textAlign: 'left' }}>
-                              <a href={nowPlaying.url} target="_blank" rel="noopener noreferrer"> <b>{nowPlaying.name}</b> </a>
+                            <a href={nowPlaying.url} target="_blank" rel="noopener noreferrer"> <b>{nowPlaying.name}</b> </a>
                             </Typography>
                           </div>
                           <div style={{ flex: '1', textAlign: 'left' }}>
                             <Typography variant="h5" color="primary">
-                              <i>{nowPlaying.artist}</i>
+                            <a href={nowPlaying.artistUrl} target="_blank" rel="noopener noreferrer"> <i>{nowPlaying.artist}</i> </a>
                             </Typography>
                           </div>
                           {nowPlaying.albumArt && (
@@ -418,7 +426,7 @@ function App() {
                             </div>
                             <div style={{ flex: '1', textAlign: 'left' }}>
                               <Typography variant="h5" color="primary">
-                               <i>{track.artists}</i>
+                              <a href={track.artistUrl} target="_blank" rel="noopener noreferrer"> <i>{track.artist}</i> </a>
                               </Typography>
                             </div>
                           </div>
