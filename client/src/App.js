@@ -232,12 +232,14 @@ function App() {
               return {
                 ...track,
                 image: image,
+                spotifyUrl: trackData.external_urls.spotify
               };
             } catch (error) {
               console.error("Error fetching track data:", error);
               return {
                 ...track,
                 image: null,
+                spotifyUrl: null
               };
             }
           })
@@ -480,6 +482,18 @@ function App() {
                             )}
                             <Typography variant="h4" color="primary">
                               &nbsp; <b>{track.name}</b>
+                              <IconButton
+                                color="primary"
+                                aria-label="link"
+                                sx={{ fontSize: '32px', width: '64px', height: '64px' }} 
+                                onClick={() => {
+                                  if (track.spotifyUrl) {
+                                    window.open(track.spotifyUrl, '_blank');
+                                  }
+                                 }}
+                              >
+                                <OpenInNewIcon sx={{ fontSize: '32px' }} />
+                              </IconButton>
                             </Typography>
                           </div>
                         ))}
