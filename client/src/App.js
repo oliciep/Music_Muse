@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import PlayArrowIcon from '@mui/icons-material/Refresh';
+import EqualizerIcon from '@mui/icons-material/Equalizer';
 import Grid from '@mui/material/Grid';
 
 
@@ -369,24 +369,26 @@ function App() {
                           <img src={nowPlaying.albumArt} alt="Track Album" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
                         )}
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 'calc(100% - 60px)' }}>
-                          <div style={{ flex: '1' }}> {/* Shift track name to the left */}
+                          <div style={{ flex: '1' }}>
                             <Typography variant="h5" color="primary">
                               <b>{nowPlaying.name}</b>
                             </Typography>
                           </div>
                           <div style={{ flex: '1', textAlign: 'center' }}>
-                            <Typography variant="h5" color="primary"> {/* Centering style */}
+                            <Typography variant="h5" color="primary">
                               <i>{nowPlaying.artist}</i>
                             </Typography>
                           </div>
-                          <div style={{ position: 'absolute', right: '5%', top: '15%', transform: 'translateY(-50%)', marginRight: '10px' }}> {/* Position the icon absolutely */}
-                            <PlayArrowIcon style={{ color: 'green' }} /> {/* Play icon */}
-                          </div>
+                          {nowPlaying.albumArt && (
+                            <div style={{ position: 'absolute', right: '5%', top: '15%', transform: 'translateY(-50%)', marginRight: '10px' }}>
+                              <EqualizerIcon style={{ color: 'secondary' }} />
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
                     {recentTracks.map((track, index) => (
-                      <div key={index} style={{ width: '100%' }}> {/* Container for each row */}
+                      <div key={index} style={{ width: '100%' }}>
                         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', width: '100%' }}>
                           {track.image && (
                             <img src={track.image} alt="Track Album" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
