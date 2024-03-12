@@ -533,22 +533,22 @@ function App() {
 
               <div
                 style={{
-                  display: 'flex', // Keeps flexbox
-                  justifyContent: 'center', // Horizontally centers the content
-                  alignItems: 'center', // Vertically centers the content
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  alignItems: 'center', 
                 }}
               >
                 <div
                   className="fadeInAnimation"
                   style={{
                     backgroundColor: lightTheme.palette.tertiary.main,
-                    width: '85vw', // Adjusted for potentially wider content
+                    width: '85vw',
                     borderRadius: '20px',
                     borderColor: lightTheme.palette.primary.main,
                     borderWidth: '3px',
                     borderStyle: 'solid',
-                    padding: '20px', // Adjusted padding for better spacing
-                    overflow: 'auto', // Adds scroll if content overflows
+                    padding: '20px',
+                    overflow: 'auto',
                   }}
                 >
                   <Box>
@@ -562,11 +562,11 @@ function App() {
                     </Typography>
                     <div
                       style={{
-                        display: 'flex', // Use flex to layout children
-                        flexWrap: 'wrap', // Allows items to wrap
+                        display: 'flex', 
+                        flexWrap: 'wrap',
                         justifyContent: 'center',
-                        alignItems: 'center', // Align items vertically
-                        gap: '10px', // Adds space between items
+                        alignItems: 'center', 
+                        gap: '10px', 
                       }}
                     >
                       {topGenres.map((genre, index) => (
@@ -579,7 +579,7 @@ function App() {
                         >
                           <Typography variant="h4" color="primary">
                             <b>{genre[0]}</b> <i>({genre[1]} tracks)</i>
-                            {index < topGenres.length - 1 ? ',' : ''} {/* Adds commas except for the last genre */}
+                            {index < topGenres.length - 1 ? ',' : ''}
                           </Typography>
                         </span>
                       ))}
