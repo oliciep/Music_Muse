@@ -396,12 +396,12 @@ function App() {
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 'calc(100% - 60px)' }}>
                           <div style={{ flex: '1' }}>
                             <Typography variant="h5" color="primary" style = {{ textAlign: 'left' }}>
-                            <a href={nowPlaying.url} target="_blank" rel="noopener noreferrer"> <b>{nowPlaying.name}</b> </a>
+                             <a href={nowPlaying.url} target="_blank" rel="noopener noreferrer"> <b>{nowPlaying.name}</b> </a>
                             </Typography>
                           </div>
                           <div style={{ flex: '1', textAlign: 'left' }}>
                             <Typography variant="h5" color="primary">
-                            <a href={nowPlaying.artistUrl} target="_blank" rel="noopener noreferrer"> <i>{nowPlaying.artist}</i> </a>
+                             <a href={nowPlaying.artistUrl} target="_blank" rel="noopener noreferrer"> <i>{nowPlaying.artist}</i> </a>
                             </Typography>
                           </div>
                           {nowPlaying.albumArt && (
@@ -464,7 +464,7 @@ function App() {
                               <img src={artist.image} alt="Artist" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
                             )}
                             <Typography variant="h4" color="primary">
-                              &nbsp; <b>{artist.name}</b>
+                              &nbsp; <a href={artist.spotifyUrl} target="_blank" rel="noopener noreferrer"> <b>{artist.name}</b> </a>
                               <IconButton
                                 color="primary"
                                 aria-label="link"
@@ -500,19 +500,7 @@ function App() {
                               <img src={track.image} alt="Track Album" style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '10px' }} />
                             )}
                             <Typography variant="h4" color="primary">
-                              &nbsp; <b>{track.name}</b>
-                              <IconButton
-                                color="primary"
-                                aria-label="link"
-                                sx={{ fontSize: '32px', width: '64px', height: '64px' }} 
-                                onClick={() => {
-                                  if (track.spotifyUrl) {
-                                    window.open(track.spotifyUrl, '_blank');
-                                  }
-                                 }}
-                              >
-                                <OpenInNewIcon sx={{ fontSize: '32px' }} />
-                              </IconButton>
+                              &nbsp; <a href={track.spotifyUrl} target="_blank" rel="noopener noreferrer"> <b>{track.name}</b> </a>
                             </Typography>
                           </div>
                         ))}
