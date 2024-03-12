@@ -126,7 +126,7 @@ function App() {
       .catch(error => {
         console.error("Error:", error);
         setNowPlaying({
-          name: "Error fetching song name",
+          name: "Error fetching current song name",
           albumArt: null,
           artist: "",
           album: "Error fetching album",
@@ -388,7 +388,7 @@ function App() {
                     <Typography variant="h2" color="primary" gutterBottom className="fadeInAnimation">
                       Your Recent Tracks
                     </Typography>
-                    <div style={{ width: '100%' }}>
+                    <div style={{ backgroundColor: 'lightgreen', borderRadius: '5px', width: '97%' }}>
                       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', width: '100%' }}>
                         {nowPlaying.albumArt && (
                           <img src={nowPlaying.albumArt} alt="Track Album" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
@@ -405,7 +405,7 @@ function App() {
                             </Typography>
                           </div>
                           {nowPlaying.albumArt && (
-                            <div style={{ position: 'absolute', right: '5%', top: '15%', transform: 'translateY(-50%)', marginRight: '10px' }}>
+                            <div style={{ position: 'absolute', right: '10%', top: '15.5%', transform: 'translateY(-50%)', marginRight: '10px' }}>
                               <VolumeUpIcon style={{ color: 'darkgreen' }} />
                             </div>
                           )}
@@ -413,7 +413,7 @@ function App() {
                       </div>
                     </div>
                     {recentTracks.map((track, index) => (
-                      <div key={index} style={{ width: '100%' }}>
+                      <div key={index} style={{ width: '97%' }}>
                         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', width: '100%' }}>
                           {track.image && (
                             <img src={track.image} alt="Track Album" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
@@ -465,18 +465,6 @@ function App() {
                             )}
                             <Typography variant="h4" color="primary">
                               &nbsp; <a href={artist.spotifyUrl} target="_blank" rel="noopener noreferrer"> <b>{artist.name}</b> </a>
-                              <IconButton
-                                color="primary"
-                                aria-label="link"
-                                sx={{ fontSize: '32px', width: '64px', height: '64px' }} 
-                                onClick={() => {
-                                  if (artist.spotifyUrl) {
-                                    window.open(artist.spotifyUrl, '_blank');
-                                  }
-                                 }}
-                              >
-                                <OpenInNewIcon sx={{ fontSize: '32px' }} />
-                              </IconButton>
                             </Typography>
                           </div>
                         ))}
