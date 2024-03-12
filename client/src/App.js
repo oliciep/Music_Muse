@@ -93,13 +93,13 @@ function App() {
         console.log(response);
         if(response.item) {
           const track = response.item;
-          const mainArtist = track.artists[0]; // Get the main artist
-          const artistData = await spotifyApi.getArtist(mainArtist.id); // Fetch artist details including the artist URL
+          const mainArtist = track.artists[0];
+          const artistData = await spotifyApi.getArtist(mainArtist.id);
           const trackInfo = {
             name: track.name,
             albumArt: track.album.images.length > 0 ? track.album.images[0].url : null,
-            artist: mainArtist.name, // Only the main artist
-            artistUrl: artistData.external_urls.spotify, // URL for the main artist on Spotify
+            artist: mainArtist.name, 
+            artistUrl: artistData.external_urls.spotify, 
             album: track.album.name,
             duration_ms: track.duration_ms,
             popularity: track.popularity,
@@ -110,7 +110,7 @@ function App() {
           setNowPlaying(trackInfo);
         } else {
           setNowPlaying({
-            name: "Nothing",
+            name: "Nothing currently playing.",
             albumArt: null,
             artist: "",
             album: "None",
@@ -118,7 +118,7 @@ function App() {
             popularity: 0,
             id: "",
             uri: "",
-            url: "" // No URL for the track when nothing is playing
+            url: "" 
           });
         }
         setButtonClicked(true);
@@ -126,15 +126,15 @@ function App() {
       .catch(error => {
         console.error("Error:", error);
         setNowPlaying({
-          name: "Error fetching current song name",
+          name: "Error fetching current song name.",
           albumArt: null,
           artist: "",
-          album: "Error fetching album",
+          album: "Error fetching album.",
           duration_ms: 0,
           popularity: 0,
           id: "",
           uri: "",
-          url: "" // No URL when there's an error
+          url: "" 
         });
         setButtonClicked(true);
       });
@@ -143,26 +143,21 @@ function App() {
 
   // Function to display the previous 5 songs the user has listened to
   const getRecentTracks = () => {
-    // Make a request to the Spotify API to fetch the user's recently played tracks
     spotifyApi.getMyRecentlyPlayedTracks({ limit: 9 })
       .then(async response => {
-        // Extract the track information from the response
         const recentTracks = await Promise.all(response.items.map(async item => {
-          // Fetch additional track details including the track URL and the main artist's URL
           const trackData = await spotifyApi.getTrack(item.track.id);
-          const mainArtist = trackData.artists[0]; // Get the main artist
-          const artistData = await spotifyApi.getArtist(mainArtist.id); // Fetch artist details including the artist URL
+          const mainArtist = trackData.artists[0];
+          const artistData = await spotifyApi.getArtist(mainArtist.id); 
           return {
             name: trackData.name,
-            artist: mainArtist.name, // Only the main artist
-            artistUrl: artistData.external_urls.spotify, // URL for the main artist on Spotify
+            artist: mainArtist.name, 
+            artistUrl: artistData.external_urls.spotify, 
             album: trackData.album.name,
             image: trackData.album.images.length > 0 ? trackData.album.images[0].url : null,
-            url: trackData.external_urls.spotify // URL for the track on Spotify
+            url: trackData.external_urls.spotify 
           };
         }));
-  
-        // Set the recentTracks state to trigger re-rendering
         setRecentTracks(recentTracks);
       })
       .catch(error => {
@@ -186,12 +181,9 @@ function App() {
         console.log("Playlist created:", playlist.id);
         if (nowPlaying.id) {
           addTracksToPlaylist(playlist.id, nowPlaying.uri);
-          // Get the image of the first song in the playlist
         } else {
           console.error("No currently playing track found.");
         }
-  
-        // Adding the playlist link to the state
         setPlaylistLink(playlist.external_urls.spotify);
         console.log("Playlist link:", playlist.external_urls.spotify);
       })
@@ -312,7 +304,7 @@ function App() {
               return {
                 ...artist,
                 image: artistData.images.length > 0 ? artistData.images[0].url : null,
-                spotifyUrl: artistData.external_urls.spotify // Get Spotify URL for the artist
+                spotifyUrl: artistData.external_urls.spotify
               };
             } catch (error) {
               console.error("Error fetching artist data:", error);
