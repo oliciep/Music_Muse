@@ -304,14 +304,14 @@ function App() {
               return {
                 ...artist,
                 image: artistData.images.length > 0 ? artistData.images[0].url : null,
-                spotifyUrl: artistData.external_urls.spotify
+                spotifyUrl: artistData.external_urls.spotify,
               };
             } catch (error) {
               console.error("Error fetching artist data:", error);
               return {
                 ...artist,
                 image: null,
-                spotifyUrl: null
+                spotifyUrl: null,
               };
             }
           })
@@ -323,7 +323,6 @@ function App() {
         console.error("Error fetching recently played tracks:", error);
       });
   };
-  
   
   // Main HTML code for front-facing application
   return (
@@ -489,7 +488,6 @@ function App() {
                   </div>
                 </div>
               </div>
-
 
               <div style={{ marginBottom: '100vh' }}></div> {}
               

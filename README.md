@@ -2,9 +2,11 @@
 
 This project is a React based music recommendation application. It contains song tracking and playlist generation capabilities. It uses the Spotify API in order to fetch music information, and the front end of the project uses React.js to create the interface.
 
-## Demo
+## Application Overview
 
-![](https://github.com/oliciep/Music_Recommendation_App/blob/main/demo.gif)
+__Displays recently listened tracks, with further links to relevant artist/track information.
+
+![](https://github.com/oliciep/Music_Recommendation_App/blob/main/demos/recentTracks.gif)
 
 ## Features
 
