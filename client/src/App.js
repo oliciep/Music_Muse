@@ -63,6 +63,7 @@ function App() {
   const [buttonClicked, setButtonClicked] = useState(false);
   const [topTracks, setTopTracks] = useState([]);
   const [topArtists, setTopArtists] = useState([]);
+  const [topGenres, setTopGenres] = useState([]);
   const [playlistLink, setPlaylistLink] = useState("");
 
   useEffect(() => {
@@ -81,6 +82,7 @@ function App() {
         getRecentTracks();
         getRecentlyPlayedTracks();
         getRecentlyPlayedArtists();
+        getTopGenresFromRecentlyPlayedTracks();
       });
       setLoggedIn(true);
     }
@@ -323,6 +325,46 @@ function App() {
         console.error("Error fetching recently played tracks:", error);
       });
   };
+
+  const getTopGenresFromRecentlyPlayedTracks = () => {
+    spotifyApi.getMyRecentlyPlayedTracks({ limit: 50 })
+      .then(async (response) => {
+        const tracks = response.items.map(item => item.track);
+        // Extract unique artist IDs to avoid fetching the same artist multiple times
+        const uniqueArtistIds = [...new Set(tracks.flatMap(track => track.artists.map(artist => artist.id)))];
+        
+        // Fetch details for each unique artist
+        const artistDetails = await Promise.all(uniqueArtistIds.map(async (artistId) => {
+          try {
+            const artistData = await spotifyApi.getArtist(artistId);
+            return artistData; // This contains the genres
+          } catch (error) {
+            console.error(`Error fetching details for artist ID ${artistId}:`, error);
+            return null; // In case of error, return null and filter these out later
+          }
+        }));
+        
+        // Filter out any null responses due to errors
+        const validArtists = artistDetails.filter(artist => artist !== null);
+        
+        // Aggregate genres and their counts
+        const genreCounts = validArtists.flatMap(artist => artist.genres).reduce((acc, genre) => {
+          acc[genre] = (acc[genre] || 0) + 1;
+          return acc;
+        }, {});
+  
+        // Convert the genres object into an array of [genre, count] and sort by count
+        const topGenres = Object.entries(genreCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+        
+        setTopGenres(topGenres);
+        console.log("Top genres from recently played tracks:", topGenres);
+        // Here you can set your state to display these top genres in your app
+        // For example: setTopGenres(topGenres.map(genre => genre[0]));
+      })
+      .catch((error) => {
+        console.error("Error fetching recently played tracks:", error);
+      });
+  };
   
   // Main HTML code for front-facing application
   return (
@@ -488,6 +530,64 @@ function App() {
                   </div>
                 </div>
               </div>
+
+              <div
+                style={{
+                  display: 'flex', // Keeps flexbox
+                  justifyContent: 'center', // Horizontally centers the content
+                  alignItems: 'center', // Vertically centers the content
+                }}
+              >
+                <div
+                  className="fadeInAnimation"
+                  style={{
+                    backgroundColor: lightTheme.palette.tertiary.main,
+                    width: '85vw', // Adjusted for potentially wider content
+                    borderRadius: '20px',
+                    borderColor: lightTheme.palette.primary.main,
+                    borderWidth: '3px',
+                    borderStyle: 'solid',
+                    padding: '20px', // Adjusted padding for better spacing
+                    overflow: 'auto', // Adds scroll if content overflows
+                  }}
+                >
+                  <Box>
+                    <Typography
+                      variant="h2"
+                      color="primary"
+                      gutterBottom
+                      className="fadeInAnimation"
+                    >
+                      Your top genres.
+                    </Typography>
+                    <div
+                      style={{
+                        display: 'flex', // Use flex to layout children
+                        flexWrap: 'wrap', // Allows items to wrap
+                        justifyContent: 'center',
+                        alignItems: 'center', // Align items vertically
+                        gap: '10px', // Adds space between items
+                      }}
+                    >
+                      {topGenres.map((genre, index) => (
+                        <span
+                          key={index}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <Typography variant="h4" color="primary">
+                            <b>{genre[0]}</b> <i>({genre[1]} tracks)</i>
+                            {index < topGenres.length - 1 ? ',' : ''} {/* Adds commas except for the last genre */}
+                          </Typography>
+                        </span>
+                      ))}
+                    </div>
+                  </Box>
+                </div>
+              </div>
+
 
               <div style={{ marginBottom: '100vh' }}></div> {}
               
