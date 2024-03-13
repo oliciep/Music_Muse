@@ -179,22 +179,19 @@ function App() {
   
     const playlistName = "MusicMuse Playlist";
   
-    // Create the playlist
     spotifyApi.createPlaylist(user.id, { name: playlistName })
       .then((playlist) => {
         console.log("Playlist created:", playlist.id);
         setPlaylistLink(playlist.external_urls.spotify);
         console.log("Playlist link:", playlist.external_urls.spotify);
-        setPlaylistImage(nowPlaying.albumArt); // Optionally setting playlist image if you have one
+        setPlaylistImage(nowPlaying.albumArt);
   
-        // Fetch recently played tracks and process them to get top 5
         spotifyApi.getMyRecentlyPlayedTracks({ limit: 50 })
           .then(async (response) => {
             const tracks = response.items.map(item => item.track);
             const topTracks = getTopRecentlyPlayedTracks(tracks);
-            const topTrackUris = topTracks.map(track => `spotify:track:${track.id}`); // Ensure URIs are correctly formatted
+            const topTrackUris = topTracks.map(track => `spotify:track:${track.id}`); 
 
-            // Now, add those top 5 tracks to the newly created playlist
             if (topTrackUris.length > 0) {
               addTracksToPlaylist(playlist.id, topTrackUris);
             } else {
@@ -453,7 +450,7 @@ function App() {
                             </Typography>
                           </div>
                           {nowPlaying.albumArt && (
-                            <div style={{ position: 'absolute', right: '10%', top: '15.5%', transform: 'translateY(-50%)', marginRight: '10px' }}>
+                            <div style={{ position: 'absolute', right: '10%', top: '15%', transform: 'translateY(-50%)', marginRight: '10px' }}>
                               <VolumeUpIcon style={{ color: 'darkgreen' }} />
                             </div>
                           )}
@@ -619,11 +616,11 @@ function App() {
                 Create Playlist
               </Button>
 
-              <br></br><br></br>
+              <div style={{ marginBottom: '10vh' }}></div> {}
 
               {playlistLink && (
                 <div style={{ width: '40%', margin: 'auto' }}>
-                  <div className="fadeInAnimation" style={{ animationDelay: '2s', backgroundColor: lightTheme.palette.tertiary.main, display: 'flex', alignItems: 'center', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px', justifyContent: 'space-between' }}>
+                  <div className="fadeInAnimation" style={{ animationDelay: '0.5s', backgroundColor: lightTheme.palette.tertiary.main, display: 'flex', alignItems: 'center', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       {playlistImage && (
                         <img src={playlistImage} alt="Playlist Cover" style={{ height: 100, opacity: 0, animation: 'fadeIn 1s ease-out forwards', marginRight: '10px' }} onLoad={(e) => { e.target.style.opacity = 1 }} />

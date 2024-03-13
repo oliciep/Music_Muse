@@ -14,12 +14,12 @@ __Visualises top recent tracks, artists and genres you've listened to.__
 
 __Custom playlist curation based upon your listening habits.__
 
-
+![](https://github.com/oliciep/Music_Recommendation_App/blob/main/demos/createPlaylist.gif)
 
 ## Features
 
-- Real time song and album tracking capabilities.
-- User specific lifetime song and artists statistics.
+- Real time recent song and artist tracking capabilities.
+- User specific lifetime song, artist and genre statistics.
 - Specialised playlist generation based on user data.
 - REST API functionality using spotify web API.
 - Javascript backend for API integration.
@@ -27,7 +27,7 @@ __Custom playlist curation based upon your listening habits.__
 
 
 ## Deployment
-### `npm start`
+### `npm run start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
