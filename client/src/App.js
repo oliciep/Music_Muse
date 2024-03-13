@@ -489,7 +489,7 @@ function App() {
                       </Typography>
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         {topArtists.map((artist, index) => (
-                          <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                          <div className='stats' key={index} style={{ width: '96%', display: 'flex', alignItems: 'center', marginTop: '10px', borderRadius: '5px', padding: '2px 0px 2px 10px'}}>
                             <Typography variant="h4" color="primary">
                               <b>{index + 1}.</b> &nbsp;
                             </Typography>
@@ -513,7 +513,7 @@ function App() {
                       </Typography>
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         {topTracks.map((track, index) => (
-                          <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                          <div className='stats' key={index} style={{ width: '96%', display: 'flex', alignItems: 'center', marginTop: '10px', borderRadius: '5px', padding: '2px 0px 2px 10px'}}>
                             <Typography variant="h4" color="primary">
                               <b>{index + 1}.</b> &nbsp;
                             </Typography>
@@ -530,63 +530,62 @@ function App() {
                   </div>
                 </div>
               </div>
-
-              <div
-                style={{
-                  display: 'flex', 
-                  justifyContent: 'center', 
-                  alignItems: 'center', 
-                }}
-              >
-                <div
-                  className="fadeInAnimation"
-                  style={{
-                    backgroundColor: lightTheme.palette.tertiary.main,
-                    width: '85vw',
-                    borderRadius: '20px',
-                    borderColor: lightTheme.palette.primary.main,
-                    borderWidth: '3px',
-                    borderStyle: 'solid',
-                    padding: '20px',
-                    overflow: 'auto',
-                  }}
-                >
-                  <Box>
-                    <Typography
-                      variant="h2"
-                      color="primary"
-                      gutterBottom
-                      className="fadeInAnimation"
-                    >
-                      Your top genres.
-                    </Typography>
-                    <div
-                      style={{
-                        display: 'flex', 
-                        flexWrap: 'wrap',
-                        justifyContent: 'center',
-                        alignItems: 'center', 
-                        gap: '10px', 
-                      }}
-                    >
-                      {topGenres.map((genre, index) => (
-                        <span
-                          key={index}
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                          }}
-                        >
-                          <Typography variant="h4" color="primary">
-                            <b>{genre[0]}</b> <i>({genre[1]} tracks)</i>
-                            {index < topGenres.length - 1 ? ',' : ''}
-                          </Typography>
-                        </span>
-                      ))}
-                    </div>
-                  </Box>
-                </div>
-              </div>
+<div
+  style={{
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+  }}
+>
+  <div
+    className="fadeInAnimation stats" // Added 'stats' class name here for the hover effect
+    style={{
+      backgroundColor: lightTheme.palette.tertiary.main,
+      width: '85vw',
+      borderRadius: '20px',
+      borderColor: lightTheme.palette.primary.main,
+      borderWidth: '3px',
+      borderStyle: 'solid',
+      padding: '20px',
+      overflow: 'auto',
+    }}
+  >
+    <Box>
+      <Typography
+        variant="h2"
+        color="primary"
+        gutterBottom
+        className="fadeInAnimation"
+      >
+        Your top genres.
+      </Typography>
+      <div
+        style={{
+          display: 'flex', 
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          alignItems: 'center', 
+          gap: '10px', 
+        }}
+      >
+        {topGenres.map((genre, index) => (
+          <span
+            key={index}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <Typography variant="h4" color="primary">
+              <b>{genre[0]}</b> <i>({genre[1]} tracks)</i>
+              {index < topGenres.length - 1 ? ',' : ''}
+            </Typography>
+          </span>
+        ))}
+      </div>
+    </Box>
+  </div>
+</div>
 
 
               <div style={{ marginBottom: '100vh' }}></div> {}

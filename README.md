@@ -4,7 +4,7 @@ This project is a React based music recommendation application. It contains song
 
 ## Application Overview
 
-__Displays recently listened tracks, with further links to relevant artist/track information.
+__Displays recently listened tracks, with further links to relevant artist/track information.__
 
 ![](https://github.com/oliciep/Music_Recommendation_App/blob/main/demos/recentTracks.gif)
 

@@ -49,3 +49,11 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+.stats {
+  transition: background-color 0.5s ease;
+}
+
+.stats:hover {
+  background-color: lightgreen; 
+}
