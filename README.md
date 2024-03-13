@@ -12,6 +12,9 @@ __Visualises top recent tracks, artists and genres you've listened to.__
 
 ![](https://github.com/oliciep/Music_Recommendation_App/blob/main/demos/yourStats.gif)
 
+__Custom playlist curation based upon your listening habits.__
+
+
 
 ## Features
 

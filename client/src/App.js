@@ -64,6 +64,7 @@ function App() {
   const [topTracks, setTopTracks] = useState([]);
   const [topArtists, setTopArtists] = useState([]);
   const [topGenres, setTopGenres] = useState([]);
+  const [playlistImage, setPlaylistImage] = useState("");
   const [playlistLink, setPlaylistLink] = useState("");
 
   useEffect(() => {
@@ -181,13 +182,16 @@ function App() {
     spotifyApi.createPlaylist(user.id, { name: playlistName })
       .then((playlist) => {
         console.log("Playlist created:", playlist.id);
+        setPlaylistLink(playlist.external_urls.spotify);
+        console.log("Playlist link:", playlist.external_urls.spotify);
+  
         if (nowPlaying.id) {
+          setPlaylistImage(nowPlaying.albumArt); // Assuming nowPlaying.albumArt is the URL to the album art
+  
           addTracksToPlaylist(playlist.id, nowPlaying.uri);
         } else {
           console.error("No currently playing track found.");
         }
-        setPlaylistLink(playlist.external_urls.spotify);
-        console.log("Playlist link:", playlist.external_urls.spotify);
       })
       .catch((error) => {
         console.error("Error creating playlist:", error);
@@ -530,62 +534,62 @@ function App() {
                   </div>
                 </div>
               </div>
-<div
-  style={{
-    display: 'flex', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-  }}
->
-  <div
-    className="fadeInAnimation stats" // Added 'stats' class name here for the hover effect
-    style={{
-      backgroundColor: lightTheme.palette.tertiary.main,
-      width: '85vw',
-      borderRadius: '20px',
-      borderColor: lightTheme.palette.primary.main,
-      borderWidth: '3px',
-      borderStyle: 'solid',
-      padding: '20px',
-      overflow: 'auto',
-    }}
-  >
-    <Box>
-      <Typography
-        variant="h2"
-        color="primary"
-        gutterBottom
-        className="fadeInAnimation"
-      >
-        Your top genres.
-      </Typography>
-      <div
-        style={{
-          display: 'flex', 
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          alignItems: 'center', 
-          gap: '10px', 
-        }}
-      >
-        {topGenres.map((genre, index) => (
-          <span
-            key={index}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <Typography variant="h4" color="primary">
-              <b>{genre[0]}</b> <i>({genre[1]} tracks)</i>
-              {index < topGenres.length - 1 ? ',' : ''}
-            </Typography>
-          </span>
-        ))}
-      </div>
-    </Box>
-  </div>
-</div>
+              <div
+                style={{
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  alignItems: 'center', 
+                }}
+              >
+                <div
+                  className="fadeInAnimation stats" // Added 'stats' class name here for the hover effect
+                  style={{
+                    backgroundColor: lightTheme.palette.tertiary.main,
+                    width: '85vw',
+                    borderRadius: '20px',
+                    borderColor: lightTheme.palette.primary.main,
+                    borderWidth: '3px',
+                    borderStyle: 'solid',
+                    padding: '20px',
+                    overflow: 'auto',
+                  }}
+                >
+                  <Box>
+                    <Typography
+                      variant="h2"
+                      color="primary"
+                      gutterBottom
+                      className="fadeInAnimation"
+                    >
+                      Your top genres.
+                    </Typography>
+                    <div
+                      style={{
+                        display: 'flex', 
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                        alignItems: 'center', 
+                        gap: '10px', 
+                      }}
+                    >
+                      {topGenres.map((genre, index) => (
+                        <span
+                          key={index}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <Typography variant="h4" color="primary">
+                            <b>{genre[0]}</b> <i>({genre[1]} tracks)</i>
+                            {index < topGenres.length - 1 ? ',' : ''}
+                          </Typography>
+                        </span>
+                      ))}
+                    </div>
+                  </Box>
+                </div>
+              </div>
 
 
               <div style={{ marginBottom: '100vh' }}></div> {}
@@ -604,16 +608,30 @@ function App() {
                 Create Playlist
               </Button>
 
+              <br></br><br></br>
+
               {playlistLink && (
-                <div className="fadeInAnimation">
-                  <Typography variant="h4" color="primary" gutterBottom>
-                    Playlist link:{" "}
-                    <a href={playlistLink} target="_blank" rel="noopener noreferrer">
-                      {playlistLink}
-                    </a>
-                  </Typography>
+                <div style={{ width: '40%', margin: 'auto' }}>
+                  <div className="fadeInAnimation" style={{ animationDelay: '2s', backgroundColor: lightTheme.palette.tertiary.main, display: 'flex', alignItems: 'center', borderRadius: '20px', borderColor: lightTheme.palette.primary.main, borderWidth: '3px', borderStyle: 'solid', padding: '10px', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      {playlistImage && (
+                        <img src={playlistImage} alt="Playlist Cover" style={{ height: 100, opacity: 0, animation: 'fadeIn 1s ease-out forwards', marginRight: '10px' }} onLoad={(e) => { e.target.style.opacity = 1 }} />
+                      )}
+                      <div>
+                        <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold' }} className="fadeInAnimation" style={{ marginLeft: '10px' }}>
+                          Your MusicMuse Playlist.
+                        </Typography>
+                      </div>
+                    </div>
+                    <Button variant="contained" color="secondary" className="fadeInAnimation" style={{ animationDelay: '1s' }} onClick={() => window.open(playlistLink, "_blank")}>
+                      Open Playlist
+                    </Button>
+                  </div>
                 </div>
               )}
+
+
+
               
               <div style={{ marginBottom: '80vh' }}></div> {}
             </>
