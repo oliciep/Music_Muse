@@ -8,6 +8,11 @@ __Displays recently listened tracks, with further links to relevant artist/track
 
 ![](https://github.com/oliciep/Music_Recommendation_App/blob/main/demos/recentTracks.gif)
 
+__Visualises top recent tracks, artists and genres you've listened to.__
+
+![](https://github.com/oliciep/Music_Recommendation_App/blob/main/demos/yourStats.gif)
+
+
 ## Features
 
 - Real time song and album tracking capabilities.
