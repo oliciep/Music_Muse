@@ -177,37 +177,54 @@ function App() {
       return;
     }
   
-    const playlistName = "Recently Played Playlist";
+    const playlistName = "MusicMuse Playlist";
   
+    // Create the playlist
     spotifyApi.createPlaylist(user.id, { name: playlistName })
       .then((playlist) => {
         console.log("Playlist created:", playlist.id);
         setPlaylistLink(playlist.external_urls.spotify);
         console.log("Playlist link:", playlist.external_urls.spotify);
+        setPlaylistImage(nowPlaying.albumArt); // Optionally setting playlist image if you have one
   
-        if (nowPlaying.id) {
-          setPlaylistImage(nowPlaying.albumArt); // Assuming nowPlaying.albumArt is the URL to the album art
-  
-          addTracksToPlaylist(playlist.id, nowPlaying.uri);
-        } else {
-          console.error("No currently playing track found.");
-        }
+        // Fetch recently played tracks and process them to get top 5
+        spotifyApi.getMyRecentlyPlayedTracks({ limit: 50 })
+          .then(async (response) => {
+            const tracks = response.items.map(item => item.track);
+            const topTracks = getTopRecentlyPlayedTracks(tracks);
+            const topTrackUris = topTracks.map(track => `spotify:track:${track.id}`); // Ensure URIs are correctly formatted
+
+            // Now, add those top 5 tracks to the newly created playlist
+            if (topTrackUris.length > 0) {
+              addTracksToPlaylist(playlist.id, topTrackUris);
+            } else {
+              console.log("No top tracks found to add to the playlist.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching recently played tracks:", error);
+          });
       })
       .catch((error) => {
         console.error("Error creating playlist:", error);
       });
-  };
+};
 
   // Function to add tracks to generated playlist
-  const addTracksToPlaylist = (playlistId, trackUri) => {
-    spotifyApi.addTracksToPlaylist(playlistId, [trackUri])
-      .then((response) => {
-        console.log("Track added to the playlist:", response);
+  const addTracksToPlaylist = (playlistId, trackUris) => {
+    if (!trackUris.length) {
+        console.error("No tracks URIs provided to add to the playlist.");
+        return;
+    }
+  
+    spotifyApi.addTracksToPlaylist(playlistId, trackUris)
+      .then(response => {
+        console.log("Tracks added to the playlist:", response);
       })
-      .catch((error) => {
-        console.error("Error adding track to playlist:", error);
+      .catch(error => {
+        console.error("Error adding tracks to playlist:", error);
       });
-  };
+};
 
   // Function to generate array (sorted by frequency) of previous 50 tracks from user
   const getTopRecentlyPlayedTracks = (tracks) => {
@@ -334,24 +351,20 @@ function App() {
     spotifyApi.getMyRecentlyPlayedTracks({ limit: 50 })
       .then(async (response) => {
         const tracks = response.items.map(item => item.track);
-        // Extract unique artist IDs to avoid fetching the same artist multiple times
         const uniqueArtistIds = [...new Set(tracks.flatMap(track => track.artists.map(artist => artist.id)))];
         
-        // Fetch details for each unique artist
         const artistDetails = await Promise.all(uniqueArtistIds.map(async (artistId) => {
           try {
             const artistData = await spotifyApi.getArtist(artistId);
-            return artistData; // This contains the genres
+            return artistData; 
           } catch (error) {
             console.error(`Error fetching details for artist ID ${artistId}:`, error);
-            return null; // In case of error, return null and filter these out later
+            return null; 
           }
         }));
         
-        // Filter out any null responses due to errors
         const validArtists = artistDetails.filter(artist => artist !== null);
         
-        // Aggregate genres and their counts
         const genreCounts = validArtists.flatMap(artist => artist.genres).reduce((acc, genre) => {
           acc[genre] = (acc[genre] || 0) + 1;
           return acc;
@@ -362,8 +375,6 @@ function App() {
         
         setTopGenres(topGenres);
         console.log("Top genres from recently played tracks:", topGenres);
-        // Here you can set your state to display these top genres in your app
-        // For example: setTopGenres(topGenres.map(genre => genre[0]));
       })
       .catch((error) => {
         console.error("Error fetching recently played tracks:", error);
@@ -618,8 +629,8 @@ function App() {
                         <img src={playlistImage} alt="Playlist Cover" style={{ height: 100, opacity: 0, animation: 'fadeIn 1s ease-out forwards', marginRight: '10px' }} onLoad={(e) => { e.target.style.opacity = 1 }} />
                       )}
                       <div>
-                        <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold' }} className="fadeInAnimation" style={{ marginLeft: '10px' }}>
-                          Your MusicMuse Playlist.
+                        <Typography variant="h5" color="primary" className="fadeInAnimation" style={{ marginLeft: '10px' }}>
+                          <b>Your MusicMuse Playlist. </b><i>(5 Tracks)</i>
                         </Typography>
                       </div>
                     </div>
