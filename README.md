@@ -1,6 +1,6 @@
 # My Music Recommendation Application
 
-This project is a React based music recommendation application. It contains song tracking and playlist generation capabilities. It uses the Spotify API in order to fetch music information, and the front end of the project uses React.js to create the interface.
+This project is a **React.js** based music recommendation application. It contains song tracking and playlist generation capabilities. It uses the _Spotify API_ in order to fetch music information, and the front end of the project uses **React.js** to create the interface.
 
 ## Application Overview
 
