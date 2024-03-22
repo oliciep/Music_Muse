@@ -627,7 +627,7 @@ function App() {
                       )}
                       <div>
                         <Typography variant="h5" color="primary" className="fadeInAnimation" style={{ marginLeft: '10px' }}>
-                          <b>Your MusicMuse Playlist. </b><i>(5 Tracks)</i>
+                          <b>MusicMuse Playlist </b><i>(5 Tracks)</i>
                         </Typography>
                       </div>
                     </div>
