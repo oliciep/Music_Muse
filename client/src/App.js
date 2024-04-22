@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from "react"
 import SpotifyWebApi from "spotify-web-api-js"
@@ -11,8 +10,6 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import Grid from '@mui/material/Grid';
 
 
 // Light theme colour palette
@@ -68,15 +65,20 @@ function App() {
   const [playlistLink, setPlaylistLink] = useState("");
 
   useEffect(() => {
-    console.log("Token derived from URL: ", getTokenFromUrl());
-    const spotifyToken = getTokenFromUrl().access_token;
-    window.location.hash = "";
-    console.log("Spotify token: ", spotifyToken);
+    const token = getTokenFromUrl().access_token;
+    if (token) {
+      initializeSpotifySession(token);
+    }
+  }, []);
 
-    if (spotifyToken) {
-      setSpotifyToken(spotifyToken);
-      spotifyApi.setAccessToken(spotifyToken);
-      spotifyApi.getMe().then((user) => {
+  const initializeSpotifySession = async (token) => {
+      window.location.hash = "";
+      console.log("Spotify token: ", token);
+      setSpotifyToken(token);
+      spotifyApi.setAccessToken(token);
+
+      try {
+        const user = await spotifyApi.getMe();
         console.log(user);
         setUser(user);
         getNowPlaying();
@@ -84,10 +86,11 @@ function App() {
         getRecentlyPlayedTracks();
         getRecentlyPlayedArtists();
         getTopGenresFromRecentlyPlayedTracks();
-      });
-      setLoggedIn(true);
-    }
-  }, []);
+        setLoggedIn(true);
+      } catch (error) {
+        console.error("Error initializing Spotify session:", error);
+      }
+  };
 
   // Function to get data of current playing song from user's spotify
   const getNowPlaying = () => {
