@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from "react"
 import SpotifyWebApi from "spotify-web-api-js"
+import TopTracksContainer from './components/TopTracksContainer';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
