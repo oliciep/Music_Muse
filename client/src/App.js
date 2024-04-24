@@ -511,7 +511,6 @@ function App() {
                 >
                   <div
                     style={{
-                      marginBottom: "20px",
                       borderRadius: "5px",
                       padding: "10px",
                     }}
