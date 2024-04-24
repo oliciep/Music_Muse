@@ -1,6 +1,8 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
+import NowPlaying from "./components/NowPlaying";
+import RecentTracks from "./components/RecentTracks";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { green } from "@mui/material/colors";
@@ -507,154 +509,15 @@ function App() {
                     width: "100%",
                   }}
                 >
-                  <div style={{ marginBottom: "20px" }}>
-                    <Typography
-                      variant="h2"
-                      color="primary"
-                      gutterBottom
-                      className="fadeInAnimation"
-                    >
-                      Your Recent Tracks
-                    </Typography>
-                    <div
-                      style={{
-                        backgroundColor: "lightgreen",
-                        borderRadius: "5px",
-                        width: "97%",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "10px",
-                          width: "100%",
-                        }}
-                      >
-                        {nowPlaying.albumArt && (
-                          <img
-                            src={nowPlaying.albumArt}
-                            alt="Track Album"
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              marginRight: "10px",
-                            }}
-                          />
-                        )}
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            width: "calc(100% - 60px)",
-                          }}
-                        >
-                          <div style={{ flex: "1" }}>
-                            <Typography
-                              variant="h5"
-                              color="primary"
-                              style={{ textAlign: "left" }}
-                            >
-                              <a
-                                href={nowPlaying.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {" "}
-                                <b>{nowPlaying.name}</b>{" "}
-                              </a>
-                            </Typography>
-                          </div>
-                          <div style={{ flex: "1", textAlign: "left" }}>
-                            <Typography variant="h5" color="primary">
-                              <a
-                                href={nowPlaying.artistUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {" "}
-                                <i>{nowPlaying.artist}</i>{" "}
-                              </a>
-                            </Typography>
-                          </div>
-                          {nowPlaying.albumArt && (
-                            <div
-                              style={{
-                                position: "absolute",
-                                right: "10%",
-                                top: "15%",
-                                transform: "translateY(-50%)",
-                                marginRight: "10px",
-                              }}
-                            >
-                              <VolumeUpIcon style={{ color: "darkgreen" }} />
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    {recentTracks.map((track, index) => (
-                      <div key={index} style={{ width: "97%" }}>
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            marginBottom: "10px",
-                            width: "100%",
-                          }}
-                        >
-                          {track.image && (
-                            <img
-                              src={track.image}
-                              alt="Track Album"
-                              style={{
-                                width: "50px",
-                                height: "50px",
-                                marginRight: "10px",
-                              }}
-                            />
-                          )}
-                          <div
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "space-between",
-                              width: "calc(100% - 60px)",
-                            }}
-                          >
-                            <div style={{ flex: "1" }}>
-                              <Typography
-                                variant="h5"
-                                color="primary"
-                                style={{ textAlign: "left" }}
-                              >
-                                <a
-                                  href={track.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {" "}
-                                  <b>{track.name}</b>{" "}
-                                </a>
-                              </Typography>
-                            </div>
-                            <div style={{ flex: "1", textAlign: "left" }}>
-                              <Typography variant="h5" color="primary">
-                                <a
-                                  href={track.artistUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {" "}
-                                  <i>{track.artist}</i>{" "}
-                                </a>
-                              </Typography>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                  <div
+                    style={{
+                      marginBottom: "20px",
+                      borderRadius: "5px",
+                      padding: "10px",
+                    }}
+                  >
+                    <NowPlaying nowPlaying={nowPlaying} />
+                    <RecentTracks recentTracks={recentTracks} />
                   </div>
                 </div>
               </div>
