@@ -14,8 +14,7 @@ const NowPlaying = ({ nowPlaying }) => {
         sx={{
           backgroundColor: "lightgreen",
           borderRadius: "5px",
-          padding: "5px",
-          marginBottom: "10px",
+          padding: "3px",
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -27,12 +26,12 @@ const NowPlaying = ({ nowPlaying }) => {
               sx={{
                 width: "50px",
                 height: "50px",
-                marginLeft: "15px",
+                marginLeft: "17px",
                 marginRight: "20px",
               }}
             />
           )}
-          <Typography variant="h5" color="primary" sx={{ minWidth: "220px" }}>
+          <Typography variant="h5" color="primary">
             <a href={nowPlaying.url} target="_blank" rel="noopener noreferrer">
               <b>{nowPlaying.name}</b>
             </a>
@@ -43,7 +42,9 @@ const NowPlaying = ({ nowPlaying }) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <b>{nowPlaying.artist}</b>
+              <b>
+                <i>{nowPlaying.artist}</i>
+              </b>
             </a>
           </Typography>
           {nowPlaying.albumArt && (

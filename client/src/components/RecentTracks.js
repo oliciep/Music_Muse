@@ -35,7 +35,9 @@ const RecentTracks = ({ recentTracks }) => {
           </Box>
           <Typography variant="h5" color="primary" sx={{ marginLeft: "auto" }}>
             <a href={track.artistUrl} target="_blank" rel="noopener noreferrer">
-              <b>{track.artist}</b>
+              <b>
+                <i>{track.artist}</i>
+              </b>
             </a>
           </Typography>
         </Box>
