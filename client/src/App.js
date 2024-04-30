@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import NowPlaying from "./components/NowPlaying";
 import RecentTracks from "./components/RecentTracks";
+import TopArtists from "./components/TopArtists";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { green } from "@mui/material/colors";
@@ -11,7 +12,6 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
 // Light theme colour palette
 const lightTheme = createTheme({
@@ -537,80 +537,7 @@ function App() {
                 }}
               >
                 <div style={{ marginRight: "2vw" }}>
-                  <div
-                    className="fadeInAnimation"
-                    style={{
-                      backgroundColor: lightTheme.palette.tertiary.main,
-                      width: "40vw",
-                      borderRadius: "20px",
-                      borderColor: lightTheme.palette.primary.main,
-                      borderWidth: "3px",
-                      borderStyle: "solid",
-                      padding: "10px",
-                    }}
-                  >
-                    {" "}
-                    {/* adjusted width */}
-                    <Box>
-                      <Typography
-                        variant="h2"
-                        color="primary"
-                        gutterBottom
-                        className="fadeInAnimation"
-                      >
-                        Your top artists.
-                      </Typography>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                        }}
-                      >
-                        {topArtists.map((artist, index) => (
-                          <div
-                            className="stats"
-                            key={index}
-                            style={{
-                              width: "96%",
-                              display: "flex",
-                              alignItems: "center",
-                              marginTop: "10px",
-                              borderRadius: "5px",
-                              padding: "2px 0px 2px 10px",
-                            }}
-                          >
-                            <Typography variant="h4" color="primary">
-                              <b>{index + 1}.</b> &nbsp;
-                            </Typography>
-                            {artist.image && (
-                              <img
-                                src={artist.image}
-                                alt="Artist"
-                                style={{
-                                  width: "100px",
-                                  height: "100px",
-                                  borderRadius: "50%",
-                                  marginRight: "10px",
-                                }}
-                              />
-                            )}
-                            <Typography variant="h4" color="primary">
-                              &nbsp;{" "}
-                              <a
-                                href={artist.spotifyUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {" "}
-                                <b>{artist.name}</b>{" "}
-                              </a>
-                            </Typography>
-                          </div>
-                        ))}
-                      </div>
-                    </Box>
-                  </div>
+                  <TopArtists topArtists={topArtists} />
                 </div>
                 <div style={{ marginLeft: "2vw" }}>
                   <div
