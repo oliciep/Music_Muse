@@ -1,8 +1,10 @@
 import React from "react";
 import { Typography, Box, useTheme, ThemeProvider } from "@mui/material";
+import "./TopArtists.css"; // Make sure the path is correct
 
 const TopArtists = ({ topArtists }) => {
   const theme = useTheme();
+
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -34,14 +36,7 @@ const TopArtists = ({ topArtists }) => {
           {topArtists.map((artist, index) => (
             <div
               key={index}
-              style={{
-                width: "96%",
-                display: "flex",
-                alignItems: "center",
-                marginTop: "10px",
-                borderRadius: "5px",
-                padding: "2px 0px 2px 10px",
-              }}
+              className="artistContainer" // Applying the CSS class
             >
               <Typography variant="h4" color="primary">
                 <b>{index + 1}.</b> &nbsp;
