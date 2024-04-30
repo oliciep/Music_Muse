@@ -1,8 +1,8 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
-import NowPlaying from "./components/NowPlaying";
-import RecentTracks from "./components/RecentTracks";
+import NowPlaying from "./components/RecentTracks/NowPlaying";
+import RecentTracks from "./components/RecentTracks/RecentTracks";
 import TopArtists from "./components/TopArtists/TopArtists";
 import TopGenres from "./components/TopGenres";
 

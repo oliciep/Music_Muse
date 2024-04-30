@@ -14,9 +14,8 @@ const TopGenres = ({ topGenres }) => {
         }}
       >
         <div
-          className="fadeInAnimation stats" // Ensure your CSS is handling this class correctly
           style={{
-            backgroundColor: theme.palette.tertiary.main, // Make sure theme is passed correctly if needed
+            backgroundColor: theme.palette.tertiary.main,
             width: "85vw",
             borderRadius: "20px",
             borderColor: "theme.palette.primary.main",
