@@ -13,8 +13,8 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
-// Light theme colour palette
-const lightTheme = createTheme({
+// Theme colour palette
+const theme = createTheme({
   palette: {
     primary: {
       main: green[800],
@@ -24,18 +24,6 @@ const lightTheme = createTheme({
     },
     tertiary: {
       main: green[300],
-    },
-  },
-});
-
-// Dark theme colour palette
-const darkTheme = createTheme({
-  palette: {
-    primary: {
-      main: green[400],
-    },
-    secondary: {
-      main: green[800],
     },
   },
 });
@@ -423,7 +411,7 @@ function App() {
 
   // Main HTML code for front-facing application
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={theme}>
       <div className="App">
         <Box
           sx={{
@@ -481,9 +469,9 @@ function App() {
                 style={{
                   width: "58%",
                   margin: "auto",
-                  backgroundColor: lightTheme.palette.tertiary.main,
+                  backgroundColor: theme.palette.tertiary.main,
                   borderRadius: "20px",
-                  borderColor: lightTheme.palette.primary.main,
+                  borderColor: theme.palette.primary.main,
                   borderWidth: "3px",
                   borderStyle: "solid",
                   padding: "10px",
@@ -543,10 +531,10 @@ function App() {
                   <div
                     className="fadeInAnimation"
                     style={{
-                      backgroundColor: lightTheme.palette.tertiary.main,
+                      backgroundColor: theme.palette.tertiary.main,
                       width: "40vw",
                       borderRadius: "20px",
-                      borderColor: lightTheme.palette.primary.main,
+                      borderColor: theme.palette.primary.main,
                       borderWidth: "3px",
                       borderStyle: "solid",
                       padding: "10px",
@@ -626,10 +614,10 @@ function App() {
                 <div
                   className="fadeInAnimation stats" // Added 'stats' class name here for the hover effect
                   style={{
-                    backgroundColor: lightTheme.palette.tertiary.main,
+                    backgroundColor: theme.palette.tertiary.main,
                     width: "85vw",
                     borderRadius: "20px",
-                    borderColor: lightTheme.palette.primary.main,
+                    borderColor: theme.palette.primary.main,
                     borderWidth: "3px",
                     borderStyle: "solid",
                     padding: "20px",
@@ -697,11 +685,11 @@ function App() {
                     className="fadeInAnimation"
                     style={{
                       animationDelay: "0.5s",
-                      backgroundColor: lightTheme.palette.tertiary.main,
+                      backgroundColor: theme.palette.tertiary.main,
                       display: "flex",
                       alignItems: "center",
                       borderRadius: "20px",
-                      borderColor: lightTheme.palette.primary.main,
+                      borderColor: theme.palette.primary.main,
                       borderWidth: "3px",
                       borderStyle: "solid",
                       padding: "10px",
