@@ -4,6 +4,7 @@ import SpotifyWebApi from "spotify-web-api-js";
 import NowPlaying from "./components/NowPlaying";
 import RecentTracks from "./components/RecentTracks";
 import TopArtists from "./components/TopArtists/TopArtists";
+import TopGenres from "./components/TopGenres";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { green } from "@mui/material/colors";
@@ -532,62 +533,7 @@ function App() {
                   <TopTracks topTracks={topTracks} />
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <div
-                  className="fadeInAnimation stats" // Added 'stats' class name here for the hover effect
-                  style={{
-                    backgroundColor: theme.palette.tertiary.main,
-                    width: "85vw",
-                    borderRadius: "20px",
-                    borderColor: theme.palette.primary.main,
-                    borderWidth: "3px",
-                    borderStyle: "solid",
-                    padding: "20px",
-                    overflow: "auto",
-                  }}
-                >
-                  <Box>
-                    <Typography
-                      variant="h2"
-                      color="primary"
-                      gutterBottom
-                      className="fadeInAnimation"
-                    >
-                      Your top genres.
-                    </Typography>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: "10px",
-                      }}
-                    >
-                      {topGenres.map((genre, index) => (
-                        <span
-                          key={index}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Typography variant="h4" color="primary">
-                            <b>{genre[0]}</b> <i>({genre[1]} tracks)</i>
-                            {index < topGenres.length - 1 ? "," : ""}
-                          </Typography>
-                        </span>
-                      ))}
-                    </div>
-                  </Box>
-                </div>
-              </div>
+              <TopGenres topGenres={topGenres} />
               <div style={{ marginBottom: "100vh" }}></div> {}
               <Typography
                 variant="h1"
