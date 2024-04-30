@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import NowPlaying from "./components/NowPlaying";
 import RecentTracks from "./components/RecentTracks";
-import TopArtists from "./components/TopArtists";
+import TopArtists from "./components/TopArtists/TopArtists";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { green } from "@mui/material/colors";
@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import TopTracks from "./components/TopTracks/TopTracks";
 
 // Theme colour palette
 const theme = createTheme({
@@ -528,80 +529,7 @@ function App() {
                   <TopArtists topArtists={topArtists} />
                 </div>
                 <div style={{ marginLeft: "2vw" }}>
-                  <div
-                    className="fadeInAnimation"
-                    style={{
-                      backgroundColor: theme.palette.tertiary.main,
-                      width: "40vw",
-                      borderRadius: "20px",
-                      borderColor: theme.palette.primary.main,
-                      borderWidth: "3px",
-                      borderStyle: "solid",
-                      padding: "10px",
-                    }}
-                  >
-                    {" "}
-                    {/* adjusted width */}
-                    <Box>
-                      <Typography
-                        variant="h2"
-                        color="primary"
-                        gutterBottom
-                        className="fadeInAnimation"
-                      >
-                        Your top tracks.
-                      </Typography>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                        }}
-                      >
-                        {topTracks.map((track, index) => (
-                          <div
-                            className="stats"
-                            key={index}
-                            style={{
-                              width: "96%",
-                              display: "flex",
-                              alignItems: "center",
-                              marginTop: "10px",
-                              borderRadius: "5px",
-                              padding: "2px 0px 2px 10px",
-                            }}
-                          >
-                            <Typography variant="h4" color="primary">
-                              <b>{index + 1}.</b> &nbsp;
-                            </Typography>
-                            {track.image && (
-                              <img
-                                src={track.image}
-                                alt="Track Album"
-                                style={{
-                                  width: "100px",
-                                  height: "100px",
-                                  borderRadius: "50%",
-                                  marginRight: "10px",
-                                }}
-                              />
-                            )}
-                            <Typography variant="h4" color="primary">
-                              &nbsp;{" "}
-                              <a
-                                href={track.spotifyUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {" "}
-                                <b>{track.name}</b>{" "}
-                              </a>
-                            </Typography>
-                          </div>
-                        ))}
-                      </div>
-                    </Box>
-                  </div>
+                  <TopTracks topTracks={topTracks} />
                 </div>
               </div>
               <div
