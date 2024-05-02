@@ -541,7 +541,7 @@ function App() {
                 gutterBottom
                 className="fadeInAnimation"
               >
-                Get a custom playlist made.
+                Create a custom playlist.
               </Typography>
               <Button
                 variant="contained"
